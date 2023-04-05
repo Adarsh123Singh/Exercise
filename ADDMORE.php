@@ -39,7 +39,6 @@ function sendmail($email, $v_code)
         }
 
 }
-
 if(isset($_POST['submit'])){
 
     $name = mysqli_real_escape_string($con,$_POST['name']);
@@ -49,28 +48,32 @@ if(isset($_POST['submit'])){
     $user_type = $_POST['user_type'];
     $v_code = bin2hex(random_bytes(12));
     $new_pass = md5($_POST['new_password']);
+    $select = "SELECT * FROM admin WHERE email = '$email' && password = '$new_pass' or password='$pass'";
+    $result = mysqli_query($con,$select);
+    $num = mysqli_num_rows($result);
 
-    // Check if an admin already exists in the database
-    $admin_result = mysqli_query($con, "SELECT * FROM admin");
-    $admin_num = mysqli_num_rows($admin_result);
-
-    if($user_type == 'admin' && $admin_num > 0) {
-        $error[] = 'An admin account already exists';
+    if($num > 0) {
+        $error[] = 'User already exists';
     } else {
-        $select = "SELECT * FROM admin WHERE email = '$email'";
-        $result = mysqli_query($con,$select);
-        $num = mysqli_num_rows($result);
-
-        if($num > 0) {
-            $error[] = 'User already exists';
+        if($pass != $cpass) {
+            $error[] = 'Passwords do not match!';
         } else {
-            if($pass != $cpass) {
-                $error[] = 'Passwords do not match!';
-            } else {
-                $insert = "INSERT INTO admin(name, email, password, user_type, verification_code, is_verified) VALUES('$name','$email', '$pass', '$user_type','$v_code','0')";
-                mysqli_query($con, $insert) && sendMail($_POST['email'], $v_code);
-                header('location: Verifyemail.php');
-            }
+            $insert = "INSERT INTO admin(name, email, password, user_type, verification_code, is_verified) VALUES('$name','$email', '$pass', '$user_type','$v_code','0')";
+            mysqli_query($con, $insert) && sendMail($_POST['email'], $v_code);
+            header('location: Verifyemail.php');
+        }
+    }
+    
+    // Code to update password in $select query
+    if(isset($_POST['update_password'])) {
+        $new_pass = md5($_POST['new_password']);
+        $confirm_pass = md5($_POST['confirm_password']);
+        if($new_pass != $confirm_pass) {
+            $error[] = 'New Password and Confirm Password do not match!';
+        } else {
+            $update_query = "UPDATE admin SET password = '$new_pass' WHERE email = '$email'";
+            mysqli_query($con, $update_query);
+            header('location: success.php');
         }
     }
 }
@@ -89,7 +92,7 @@ if(isset($_POST['submit'])){
     <div class="form-container">
 
         <form action="" method="POST">
-            <h3>Regitration Form</h3>
+            <h3>Add Users or admin</h3>
             <?php
             if(isset($error)){
                 foreach($error as $error){
@@ -102,7 +105,6 @@ if(isset($_POST['submit'])){
             <input type="password" name="password" required placeholder="Enter your password">
             <input type="password" name="cpassword" required placeholder="Confirm your password">
             <select name="user_type">
-                <option value="user">user</option>
                 <option value="admin">admin</option>
             </select>
             <input type="submit" name="submit" value="Register Now" class="form-btn">

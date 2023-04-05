@@ -11,7 +11,12 @@ if(isset($_POST['submit'])){
     $cpass = md5($_POST['cpassword']);
     $user_type = $_POST['user_type'];
 
-    $select = "SELECT * FROM admin WHERE email = '$email' && password = '$pass'";
+    // Get the new password value
+$new_password = md5($_POST['new_password']);
+
+// Update the password in the query
+$select = "SELECT * FROM admin WHERE email = '$email' && password = '$new_password' or password='$pass'";
+
 
     $result = mysqli_query($con,$select);
     $num = mysqli_num_rows($result);
@@ -65,10 +70,10 @@ if(isset($_POST['submit'])){
             <input type="email" name="email" required placeholder="Enter your email">
             <input type="password" name="password" required placeholder="Enter your password">
             <input type="submit" name="submit" value="Log in" class="form-btn">
-            <p>Don't have an account? <a href="REGISTRATION.php">Registration now</a></p>
+            <p>Reset PASSWORD<a href="Forgot.php">Forgot Password</a></p>
+            <p>Don't have an account? <a href="index.php">Registration now</a></p>
+            
         </form>
-
     </div>
-
 </body>
 </html>
