@@ -40,7 +40,7 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">User Details</span>
-            <a href="ADDMORE.php"><button type="button" class="btn btn-outline-success">ADD Admin</button></a>
+            <a href="ADDMORE.php"><button type="button" class="btn btn-outline-success">Add Sub-Admin</button></a>
         </div>
     </nav>
     <div class="con">
@@ -75,6 +75,8 @@
     $sort_option = "";
     $numberPages = 5;
 
+
+
     if (isset($_POST['submit'])) {
         $search = $_POST['search'];
     }
@@ -101,10 +103,12 @@
 
     $startinglimit = ($page - 1) * $numberPages;
 
-    $sql = "SELECT * FROM admin WHERE id like '%$search%' Or name like '%$search%' Or email like '%$search%' ORDER BY name $sort_option LIMIT $startinglimit,$numberPages ";
+    $sql = "SELECT * FROM admin WHERE (user_type = 'user' OR user_type = 'sub_admin') AND (id LIKE '%$search%' OR name LIKE '%$search%' OR email LIKE '%$search%') ORDER BY name $sort_option LIMIT $startinglimit, $numberPages";
+
+    
     $data = mysqli_query($con, $sql);
-    if ($total != 0) {
-        ?>
+if ($total != 0) {
+    ?>
         <center>
             <table border='3' cellspacing='7' width=53%>
                 <tr>
@@ -115,9 +119,9 @@
                     <th width=18%>Operation</th>
                 </tr>
             <?php
-        $a = 1;
-        while ($result = mysqli_fetch_assoc($data)) {
-            echo "<tr>
+    $a = 1;
+    while ($result = mysqli_fetch_assoc($data)) {
+        echo "<tr>
                     <td>$a</td>
                     <td>" . $result['name'] . "</td>
                     <td>" . $result['email'] . "</td>
@@ -131,11 +135,13 @@
                 </tr>";
 
 
-            $a++;
-        }
-    } else {
+        $a++;
+    }
+}
+     else {
         echo "No Records Count";
     }
+
     ?>
             </table>
             <?php

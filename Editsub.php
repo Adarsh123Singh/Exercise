@@ -86,7 +86,7 @@ if ($BOOKNAME !="" && $BOOKTITLE !="" && $AUTHERNAME !=="" && $NUMBER !="" && $B
         echo "<script>alert('Data inserted Successfully');
                 </script>";
                 ?>
-            <meta http-equiv = "refresh" content = "0; url = http://localhost:8080/library/Admin.php">
+            <meta http-equiv = "refresh" content = "0; url = http://localhost:8080/LIBRARY/Subadmin.php">
         <?php
     } else {
         echo "Something Wrong";

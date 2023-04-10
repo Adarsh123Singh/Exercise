@@ -23,18 +23,17 @@ $result = mysqli_fetch_assoc($data);
 
     <title>view Details</title>
 </head>
-
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <a href="http://localhost:8080/LIBRARY/User.php"><input type="submit" value="Back" class="btn btn-light"></a>
+            <a href="http://localhost:8080/LIBRARY/Admin.php"><input type="submit" value="Back" class="btn btn-light"></a>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">MORE</button>
         </div>
     </nav>
     <div class="container">
         <form action="#" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
-                <label for="recipient-name" class="col-form-label"><b>Upload Image</b></label>
+                <label for="recipient-name" class="col-form-label"><b>Upload Image</b></label><br>
                 <label for="recipient-name" class="col-form-label"><?php
                 $Upd = $result['img_post'];
                echo "<img src='$Upd'>";
@@ -78,8 +77,7 @@ $result = mysqli_fetch_assoc($data);
                 </div>
         </form>
     </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -100,16 +98,14 @@ $result = mysqli_fetch_assoc($data);
         </form>
       </div>
       <div class="modal-footer">
+      <button type="button" class="btn btn-primary">Save changes</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+
       </div>
     </div>
   </div>
 </div>
-
-    
-
- <!-- Optional JavaScript; choose one of the two! -->
+     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

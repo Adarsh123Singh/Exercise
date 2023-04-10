@@ -27,7 +27,7 @@ $result = mysqli_fetch_assoc($data);
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <a href="http://localhost:8080/LIBRARY/User.php"><input type="submit" value="Back" class="btn btn-light"></a>
+            <a href="http://localhost:8080/LIBRARY/Subadmin.php"><input type="submit" value="Back" class="btn btn-light"></a>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">MORE</button>
         </div>
     </nav>
@@ -78,7 +78,6 @@ $result = mysqli_fetch_assoc($data);
                 </div>
         </form>
     </div>
-
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

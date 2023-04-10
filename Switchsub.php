@@ -27,7 +27,7 @@ $result = mysqli_fetch_assoc($data);
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <a href="http://localhost:8080/library/admin.php"><input type="submit" value="Back" class="btn btn-light"></a>
+            <a href="http://localhost:8080/LIBRARY/Subadmin.php"><input type="submit" value="Back" class="btn btn-light"></a>
             <span class="navbar mb-0 h1">Update Book Details</span>
         </div>
     </nav>
@@ -36,7 +36,7 @@ $result = mysqli_fetch_assoc($data);
                 <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Change Image</label>
                     <input type="file" name="uploadfile"><br>
-                    <img src="<?php echo $result['img_post']; ?>" class="col-form-label" value="Change Image" required>
+                    <img src="<?php echo $result['img_post']; ?>" class="col-form-label" value="Change Image">
                 </div>
                 <div class="mb-3">
                     <label for="recipient-name" class="col-form-label">Book Name</label>
@@ -138,7 +138,7 @@ if (isset($_POST['update'])) {
         if ($data) {
             echo "<script>alert('Record Updated')</script>";
             ?>
-            <meta http-equiv="refresh" content="0; url=http://localhost:8080/library/admin.php">
+            <meta http-equiv="refresh" content="0; url=http://localhost:8080/LIBRARY/Subadmin.php">
             <?php
         } else {
             echo "Something Wrong";
@@ -147,5 +147,4 @@ if (isset($_POST['update'])) {
         echo "<script>alert('First Fill Full Book Details')</script>";
     }
 }
-
 ?>

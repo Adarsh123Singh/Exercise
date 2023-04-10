@@ -63,7 +63,7 @@
         {
             echo "<script>
                         alert('Password Updated Successfully');
-                        window.location.href='index.php';
+                        window.location.href='LOGIN.php';
                     </script>";
         }
         else{

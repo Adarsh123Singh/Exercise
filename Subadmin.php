@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -40,6 +39,7 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">Book Details</span>
+            <a href="Editsub.php"><button type="button" class="btn btn-outline-success">ADD BOOK</button></a>
             <a href="LOGOUT.php"><button type="button" class="btn btn-outline-primary">Log Out</button></a>
         </div>
     </nav>
@@ -133,9 +133,15 @@ if ($total != 0) {
                     <td>" . $result['BOOKADDITION'] . "</td>
                     <td> " . $result['DESCRIPTION'] . "</td>
 
-                    <td><a href='viewuser.php?id=$result[id]'><input type='submit' value='View' class='btn btn-info'></a>
+                    <td><a href='Switchsub.php?id=$result[id]'><input type='submit' value='Update' class='btn btn-success'></a>
+
+                    <a href='deletesub.php?id=$result[id]'><input type='submit' value='Delete' class='btn btn-danger' onclick='return checkdelete()'></a>
+
+                    <a href='viewsub.php?id=$result[id]'><input type='submit' value='View' class='btn btn-info'></a>
                     </td>
                 </tr>";
+
+
             $a++;
         }
     } else {
@@ -145,14 +151,13 @@ if ($total != 0) {
         </table>
         <?php
         if ($page > 1) {
-            echo '<button class="btn btn-dark mx-1 my-3"><a href="User.php?page=' . ($page - 1) . '&sort_alphabet=' . $sort_option . '" class="text-light">Previous</a></button>';
+            echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page - 1) . '&sort_alphabet=' . $sort_option . '" class="text-light">Previous</a></button>';
         }
         for ($btn = 1; $btn <= $num; $btn++) {
-            echo '<button class="btn btn-dark mx-1 my-3"><a href="User.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '" class="text-light">' . $btn . '</a></button>';
+            echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '" class="text-light">' . $btn . '</a></button>';
         }
         if ($page < $num) {
-            echo '<button class="btn btn-dark mx-1 my-3"><a href="User.php?page=' . ($page + 1) . '&sort_alphabet=' . $sort_option . '" class="text-light">Next</a></button>';
+            echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page + 1) . '&sort_alphabet=' . $sort_option . '" class="text-light">Next</a></button>';
         }
-        session_destroy();
         ?>
     </center>

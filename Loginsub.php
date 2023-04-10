@@ -2,38 +2,32 @@
 include('Attach.php');
 error_reporting(0);
 session_start();
-if(isset($_POST['submit'])){
 
+if (isset($_POST['submit'])) {
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $pass = md5($_POST['password']);
     $user_type = $_POST['user_type'];
 
+    // Get the new password value
     $new_password = md5($_POST['new_password']);
 
-    $select = "SELECT * FROM admin WHERE email = '$email' && password IN ('$new_password', '$pass')";
+    // Check if the email and password combination exists in the admin table
+    $select = "SELECT * FROM sub_admin WHERE email = '$email' && password IN ('$new_password', '$pass')";
     $result = mysqli_query($con, $select);
     $num = mysqli_num_rows($result);
-    if($num > 0){
-        $row = mysqli_fetch_assoc($result);
 
-        if($row['user_type'] === $user_type){
-            if($user_type === 'admin'){
-                $_SESSION['user_name'] = $row['name'];
-                header("location:Admin.php?email=$email");
-            }
-            elseif($user_type==='user') {
-                $_SESSION['user_name'] = $row['name'];
-                header("location:User.php?email=$email");
-            }
-            else{
-                $_SESSION['user_name'] = $row['name'];
-                header("location:Subadmin.php?email=$email");
+    if ($num > 0) {
+        $row = mysqli_fetch_array($result);
+
+        // Check if the user type matches
+        if ($row['user_type'] === $user_type) {
+            if ($user_type === 'sub_admin') {
+                $_SESSION['sub_admin_name'] = $row['name'];
+                header('location:Subadmin.php');
             }
         } else {
             $error[] = 'Incorrect user type selected!';
         }
-    } else {
-        $error[] = 'Incorrect email or password!';
     }
 }
 ?>
@@ -48,6 +42,7 @@ if(isset($_POST['submit'])){
     <link rel="stylesheet" href="style1.css">
 </head>
 <body>
+    
     <div class="form-container">
 
         <form action="" method="POST">
@@ -62,9 +57,7 @@ if(isset($_POST['submit'])){
             <input type="email" name="email" required placeholder="Enter your email">
             <input type="password" name="password" required placeholder="Enter your password">
             <select name="user_type">
-                <option value="admin">admin</option>
-                <option value="user">user</option>
-                <option value="sub_admin">sub_admin</option>
+                <option value="sub_admin">Sub-Admin</option>
             </select>
             <input type="submit" name="submit" value="Log in" class="form-btn">
             <p>Reset PASSWORD<a href="Forgot.php">Forgot Password</a></p>
