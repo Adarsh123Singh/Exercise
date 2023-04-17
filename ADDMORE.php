@@ -29,7 +29,7 @@ function sendmail($email, $v_code)
         $mail->Subject = 'E-mail Verification for E-Library';
         $mail->Body    = "Thanks for registration!
         Click the link below to verify the email address 
-        <a href='http://localhost:8080/LIBRARY/login.php?email=$email&v_code=$v_code'>Verify</a>";
+        <a href='http://localhost:8080/LIBRARY/verify.php?email=$email&v_code=$v_code'>Verify</a>";
         $mail->send();
         return true;
         }
@@ -38,6 +38,7 @@ function sendmail($email, $v_code)
         }
 
 }
+
 if(isset($_POST['submit'])){
 
     $name = mysqli_real_escape_string($con,$_POST['name']);
@@ -69,7 +70,7 @@ if(isset($_POST['submit'])){
         if($new_pass != $confirm_pass) {
             $error[] = 'New Password and Confirm Password do not match!';
         } else {
-            $update_query = "UPDATE sub_admin SET password = '$new_pass' WHERE email = '$email'";
+            $update_query = "UPDATE admin SET password = '$new_pass' WHERE email = '$email'";
             mysqli_query($con, $update_query);
             header('location: success.php');
         }
@@ -90,7 +91,7 @@ if(isset($_POST['submit'])){
     <div class="form-container">
 
         <form action="" method="POST">
-            <h3>Add sub-admin</h3>
+            <h3>Add User's</h3>
             <?php
             if(isset($error)){
                 foreach($error as $error){
@@ -103,6 +104,7 @@ if(isset($_POST['submit'])){
             <input type="password" name="password" required placeholder="Enter your password">
             <input type="password" name="cpassword" required placeholder="Confirm your password">
             <select name="user_type">
+            <option value="user">user</option>
                 <option value="sub_admin">sub_admin</option>
             </select>
             <input type="submit" name="submit" value="Register Now" class="form-btn">

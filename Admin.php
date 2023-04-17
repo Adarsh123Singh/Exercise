@@ -41,7 +41,7 @@
             <span class="navbar-brand mb-0 h1">Book Details</span>
             <a href="EDIT_DETAILS.php"><button type="button" class="btn btn-outline-success">ADD BOOK</button></a>
             <a href="LOGOUT.php"><button type="button" class="btn btn-outline-primary">Log Out</button></a>
-            <a href="userdeatils.php"><button type="button" class="btn btn-outline-light">Sub-admin Details</button></a>
+            <a href="userdeatils.php"><button type="button" class="btn btn-outline-light">Other user Details</button></a>
         </div>
     </nav>
     <div class="con">
@@ -106,16 +106,13 @@
     if ($total != 0) {
         ?>
     <center>
-        <table border='3' cellspacing='7' width=100%>
+        <table border='3' cellspacing='7' width=73%>
             <tr>
                 <th width=4%>S.No.</th>
                 <th width=5%>Images</th>
                 <th width=9%>Book Name</th>
                 <th width=9%>Book Title</th>
                 <th width=9%>Author Name</th>
-                <th width=9%>No. of Books</th>
-                <th width=9%>Book type</th>
-                <th width=9%>Book Addition</th>
                 <th width=22%>Description</th>
                 <th width=15%>Operation</th>
             </tr>
@@ -129,10 +126,8 @@
                     <td>" . $result['BOOKNAME'] . "</td>
                     <td>" . $result['BOOKTITLE'] . "</td>
                     <td>" . $result['AUTHERNAME'] . "</td>
-                    <td>" . $result['NUMBER'] . "</td>
-                    <td>" . $result['BOOKTYPE'] . "</td>
-                    <td>" . $result['BOOKADDITION'] . "</td>
-                    <td> " . $result['DESCRIPTION'] . "</td>
+                    <td>" . substr($result['DESCRIPTION'], 0, 100) . "...</td>
+
 
                     <td><a href='Switch.php?id=$result[id]'><input type='submit' value='Update' class='btn btn-success'></a>
 

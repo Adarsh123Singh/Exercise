@@ -1,6 +1,6 @@
 <?php 
 error_reporting(0);
-include("edit.php"); 
+include("edit.php");
 
 $id = $_GET['id'];
 
@@ -39,7 +39,6 @@ $result = mysqli_fetch_assoc($data);
                 $Upd = $result['img_post'];
                echo "<img src='$Upd'>";
                 ?></label>
-                    
                 </div>
                 <div class="mb-3">
                     <label for="recipient-name" class="col-form-label"><b>Book Name:</b></label>
@@ -74,11 +73,9 @@ $result = mysqli_fetch_assoc($data);
                 <div class="mb-3">
                     <label for="recipient-name" class="col-form-label"><b>Description/About</b></label>
                     <label for="recipient-name" class="col-form-label"><?php echo $result['DESCRIPTION']; ?></label>
-                   
                 </div>
         </form>
     </div>
-
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -88,27 +85,21 @@ $result = mysqli_fetch_assoc($data);
       </div>
       <div class="modal-body">
         <form>
-          <div class="mb-3">
-            <label><input type="checkbox"> Select for read</label>
-          </div>
-          <div class="mb-3">
-          <label><input type="checkbox"> Submitted</label>
-          </div>
-          <div class="mb-3">
-          <label><input type="checkbox"> Mark as read</label>
-          </div>
+            <p>Select Option <select name="Book" id="Book">
+                <option value="" hidden></option>
+                <option value="Want to read">Want to Read</option>
+                <option value="Mark as read">Mark as read</option>
+                <option value="Submit">Submit</option>
+            </select></p>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal">Save</button>
       </div>
     </div>
   </div>
 </div>
-
-    
-
  <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

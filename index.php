@@ -37,7 +37,6 @@ function sendmail($email, $v_code)
         catch (Exception $e) {
             return false;
         }
-
 }
 
 
@@ -103,8 +102,8 @@ if(isset($_POST['submit'])){
             <input type="password" name="password" required placeholder="Enter your password">
             <input type="password" name="cpassword" required placeholder="Confirm your password">
             <select name="user_type">
-                <option value="user">user</option>
                 <option value="admin">admin</option>
+                <option value="user">user</option>
             </select>
             <input type="submit" name="submit" value="Register Now" class="form-btn">
             <p>Already have an account? <a href="LOGIN.php">Login now</a></p>

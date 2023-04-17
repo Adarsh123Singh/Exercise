@@ -40,7 +40,7 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">User Details</span>
-            <a href="ADDMORE.php"><button type="button" class="btn btn-outline-success">Add Sub-Admin</button></a>
+            <a href="ADDMORE.php"><button type="button" class="btn btn-outline-success">Add User's</button></a>
         </div>
     </nav>
     <div class="con">

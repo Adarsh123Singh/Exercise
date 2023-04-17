@@ -1,13 +1,13 @@
 <?php
+session_start();
 include('Attach.php');
 error_reporting(0);
-session_start();
 if(isset($_POST['submit'])){
 
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $pass = md5($_POST['password']);
     $user_type = $_POST['user_type'];
-
+    
     $new_password = md5($_POST['new_password']);
 
     $select = "SELECT * FROM admin WHERE email = '$email' && password IN ('$new_password', '$pass')";
@@ -15,22 +15,25 @@ if(isset($_POST['submit'])){
     $num = mysqli_num_rows($result);
     if($num > 0){
         $row = mysqli_fetch_assoc($result);
-
-        if($row['user_type'] === $user_type){
-            if($user_type === 'admin'){
-                $_SESSION['user_name'] = $row['name'];
-                header("location:Admin.php?email=$email");
+        if($row['is_verified']==1){
+            if($row['user_type'] === $user_type){
+                if($user_type === 'admin'){
+                    $_SESSION['user_name'] = $row['name'];
+                    header("location:Admin.php?email=$email");
+                }
+                elseif($user_type==='user') {
+                    $_SESSION['user_name'] = $row['name'];
+                    header("location:User.php?email=$email");
+                }
+                else{
+                    $_SESSION['user_name'] = $row['name'];
+                    header("location:Subadmin.php?email=$email");
+                }
+            } else {
+                $error[] = 'Incorrect user type selected!';
             }
-            elseif($user_type==='user') {
-                $_SESSION['user_name'] = $row['name'];
-                header("location:User.php?email=$email");
-            }
-            else{
-                $_SESSION['user_name'] = $row['name'];
-                header("location:Subadmin.php?email=$email");
-            }
-        } else {
-            $error[] = 'Incorrect user type selected!';
+        }else{
+            $error[] = 'Email not Verified';
         }
     } else {
         $error[] = 'Incorrect email or password!';

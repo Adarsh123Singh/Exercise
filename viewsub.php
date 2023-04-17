@@ -87,15 +87,12 @@ $result = mysqli_fetch_assoc($data);
       </div>
       <div class="modal-body">
         <form>
-          <div class="mb-3">
-            <label><input type="checkbox"> Select for read</label>
-          </div>
-          <div class="mb-3">
-          <label><input type="checkbox"> Submitted</label>
-          </div>
-          <div class="mb-3">
-          <label><input type="checkbox"> Mark as read</label>
-          </div>
+        <p>Select Option <select name="Book" id="Book">
+                <option value="" hidden></option>
+                <option value="Want to read">Want to Read</option>
+                <option value="Mark as read">Mark as read</option>
+                <option value="Submit">Submit</option>
+            </select></p>
         </form>
       </div>
       <div class="modal-footer">
@@ -105,8 +102,6 @@ $result = mysqli_fetch_assoc($data);
     </div>
   </div>
 </div>
-
-    
 
  <!-- Optional JavaScript; choose one of the two! -->
 
@@ -120,7 +115,6 @@ $result = mysqli_fetch_assoc($data);
     -->
 </body>
 </html>
-
 <?php
     if(isset($_POST['update']))
     {
@@ -138,7 +132,6 @@ $result = mysqli_fetch_assoc($data);
         $DESCRIPTION = $_POST['DESCRIPTION'];
 
 if ($BOOKNAME !="" && $BOOKTITLE !="" && $AUTHERNAME !=="" && $BOOKTYPE !="" && $BOOKADDITION !="" && $DESCRIPTION !="") {
-
     $query = "UPDATE edit SET img_post='$folder', BOOKNAME='$BOOKNAME',BOOKTITLE='$BOOKTITLE',AUTHERNAME='$AUTHERNAME',BOOKTYPE='$BOOKTYPE',BOOKADDITION='$BOOKADDITION',DESCRIPTION='$DESCRIPTION' WHERE id='$id'";
     $data = mysqli_query($con,$query);
     if ($data) {

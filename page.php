@@ -48,9 +48,18 @@ if(isset($_POST['send-reset-link'])){
     $result = mysqli_query($con,$query);
     if($result){
         if(mysqli_num_rows($result)==1){
+            $row = mysqli_fetch_assoc($result);
+            // check if there is a valid reset token and it hasn't expired yet
+            if($row['resettoken'] && $row['resettokenexpire'] && strtotime($row['resettokenexpire']) > time()){
+                echo "<script>
+                    alert('A password reset link has already been sent to your email. Please check your inbox.');
+                    window.location.href='index.php';
+                </script>";
+                exit();
+            }
             $reset_token=bin2hex(random_bytes(16));
             date_default_timezone_set('Asia/kolkata');
-            $date=date("Y-m-d");
+            $date=date("Y-m-d H:i:s", strtotime("+120 minutes"));
             $query="UPDATE admin SET resettoken='$reset_token',`resettokenexpire`='$date' WHERE email='$_POST[email]'";
             if(mysqli_query($con,$query) && sendmail($_POST['email'],$reset_token)){
                 echo "<script>

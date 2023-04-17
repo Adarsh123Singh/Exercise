@@ -26,7 +26,7 @@
                 else{
                     echo "<script>
                     alert('Email already verified')
-                    window.location.href='index.php';</script>";
+                    window.location.href='LOGIN.php';</script>";
                 }
             }
             else{

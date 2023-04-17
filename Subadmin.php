@@ -113,9 +113,6 @@ if ($total != 0) {
                 <th width=8%>Book Name</th>
                 <th width=8%>Book Title</th>
                 <th width=8%>Author Name</th>
-                <th width=7%>No. of Books</th>
-                <th width=10%>Book type</th>
-                <th width=10%>Book Addition</th>
                 <th width=22%>Description</th>
                 <th width=23%>Operation</th>
             </tr>
@@ -128,10 +125,7 @@ if ($total != 0) {
                     <td>" . $result['BOOKNAME'] . "</td>
                     <td>" . $result['BOOKTITLE'] . "</td>
                     <td>" . $result['AUTHERNAME'] . "</td>
-                    <td>" . $result['NUMBER'] . "</td>
-                    <td>" . $result['BOOKTYPE'] . "</td>
-                    <td>" . $result['BOOKADDITION'] . "</td>
-                    <td> " . $result['DESCRIPTION'] . "</td>
+                    <td>" . substr($result['DESCRIPTION'], 0, 100) . "...</td>
 
                     <td><a href='Switchsub.php?id=$result[id]'><input type='submit' value='Update' class='btn btn-success'></a>
 

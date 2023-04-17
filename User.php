@@ -106,16 +106,13 @@ $data = mysqli_query($con, $sql);
 if ($total != 0) {
 ?>
     <center>
-        <table border='3' cellspacing='7' width=100%>
+        <table border='3' cellspacing='7' width=73%>
             <tr>
                 <th width=4%>S.No.</th>
                 <th width=5%>Images</th>
                 <th width=8%>Book Name</th>
                 <th width=8%>Book Title</th>
                 <th width=8%>Author Name</th>
-                <th width=7%>No. of Books</th>
-                <th width=10%>Book type</th>
-                <th width=10%>Book Addition</th>
                 <th width=22%>Description</th>
                 <th width=23%>Operation</th>
             </tr>
@@ -128,10 +125,7 @@ if ($total != 0) {
                     <td>" . $result['BOOKNAME'] . "</td>
                     <td>" . $result['BOOKTITLE'] . "</td>
                     <td>" . $result['AUTHERNAME'] . "</td>
-                    <td>" . $result['NUMBER'] . "</td>
-                    <td>" . $result['BOOKTYPE'] . "</td>
-                    <td>" . $result['BOOKADDITION'] . "</td>
-                    <td> " . $result['DESCRIPTION'] . "</td>
+                    <td>" . substr($result['DESCRIPTION'], 0, 100) . "...</td>
 
                     <td><a href='viewuser.php?id=$result[id]'><input type='submit' value='View' class='btn btn-info'></a>
                     </td>

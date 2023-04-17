@@ -10,6 +10,7 @@ $total = mysqli_num_rows($data);
 
 $result = mysqli_fetch_assoc($data);
 ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -27,7 +28,6 @@ $result = mysqli_fetch_assoc($data);
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <a href="http://localhost:8080/LIBRARY/Admin.php"><input type="submit" value="Back" class="btn btn-light"></a>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">MORE</button>
         </div>
     </nav>
     <div class="container">
@@ -77,34 +77,6 @@ $result = mysqli_fetch_assoc($data);
                 </div>
         </form>
     </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">More Option's</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label><input type="checkbox"> Select for read</label>
-          </div>
-          <div class="mb-3">
-          <label><input type="checkbox"> Submitted</label>
-          </div>
-          <div class="mb-3">
-          <label><input type="checkbox"> Mark as read</label>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-      </div>
-    </div>
-  </div>
-</div>
      <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
