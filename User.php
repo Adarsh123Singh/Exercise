@@ -32,6 +32,13 @@
         .cont1 {
             margin: 20px 590px 20px 630px;
         }
+        img {
+    height: 100px;
+    width: 100px;
+}
+td{
+    padding: 5px;
+}
     </style>
 
 </head>
@@ -71,9 +78,9 @@
 
 <?php
 include('edit.php');
-error_reporting(0);
 $sort_option = "";
 $numberPages = 3;
+$search = '';
 
 if (isset($_POST['submit'])) {
     $search = $_POST['search'];
@@ -92,7 +99,7 @@ if (isset($_GET['page'])) {
 } else {
     $page = 1;
 }
-$count_query = "SELECT COUNT(*) as count FROM edit";
+$count_query = "SELECT COUNT(*) as count FROM edit WHERE id like '%$search%' or BOOKNAME like '%$search%' or AUTHERNAME like '%$search%'";
 $count_result = mysqli_query($con, $count_query);
 $count_row = mysqli_fetch_assoc($count_result);
 $total = $count_row['count'];
@@ -108,20 +115,20 @@ if ($total != 0) {
     <center>
         <table border='3' cellspacing='7' width=73%>
             <tr>
-                <th width=4%>S.No.</th>
-                <th width=5%>Images</th>
-                <th width=8%>Book Name</th>
-                <th width=8%>Book Title</th>
-                <th width=8%>Author Name</th>
-                <th width=22%>Description</th>
-                <th width=23%>Operation</th>
+                <th width=4% height=2%>S.No.</th>
+                <th width=5% height=2%>Images</th>
+                <th width=9% height=2%>Book Name</th>
+                <th width=9% height=2%>Book Title</th>
+                <th width=9% height=2%>Author Name</th>
+                <th width=22% height=2%>Description</th>
+                <th width=15% height=2%>Operation</th>
             </tr>
         <?php
-        $a = 1;
+        $a = ($page - 1) * $numberPages + 1;
         while ($result = mysqli_fetch_assoc($data)) {
             echo "<tr>
                     <td>$a</td>
-                    <td><img src='" . $result['img_post'] . "' height='100px'></td>
+                    <td><img src='" . $result['img_post'] . "'></td>
                     <td>" . $result['BOOKNAME'] . "</td>
                     <td>" . $result['BOOKTITLE'] . "</td>
                     <td>" . $result['AUTHERNAME'] . "</td>
@@ -147,6 +154,5 @@ if ($total != 0) {
         if ($page < $num) {
             echo '<button class="btn btn-dark mx-1 my-3"><a href="User.php?page=' . ($page + 1) . '&sort_alphabet=' . $sort_option . '" class="text-light">Next</a></button>';
         }
-        session_destroy();
         ?>
     </center>

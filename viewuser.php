@@ -1,5 +1,4 @@
 <?php 
-error_reporting(0);
 include("edit.php");
 
 $id = $_GET['id'];
@@ -28,7 +27,6 @@ $result = mysqli_fetch_assoc($data);
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <a href="http://localhost:8080/LIBRARY/User.php"><input type="submit" value="Back" class="btn btn-light"></a>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">MORE</button>
         </div>
     </nav>
     <div class="container">
@@ -54,6 +52,10 @@ $result = mysqli_fetch_assoc($data);
                     <label for="recipient-name" class="col-form-label"><?php echo $result['AUTHERNAME']; ?></label>
                 </div>
                 <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label"><b>Number of books:</b></label>
+                    <label for="recipient-name" class="col-form-label"><?php echo $result['NUMBER']; ?></label>
+                </div>
+                <div class="mb-3">
                     <label for="recipient-name" class="col-form-label"><b>Book Type</b></label>
                     <div class="mb-3">
                     <label for="recipient-name" class="col-form-label"><?php 
@@ -76,30 +78,6 @@ $result = mysqli_fetch_assoc($data);
                 </div>
         </form>
     </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">More Option's</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-            <p>Select Option <select name="Book" id="Book">
-                <option value="" hidden></option>
-                <option value="Want to read">Want to Read</option>
-                <option value="Mark as read">Mark as read</option>
-                <option value="Submit">Submit</option>
-            </select></p>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
  <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

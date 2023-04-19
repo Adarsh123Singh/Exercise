@@ -55,6 +55,10 @@ $result = mysqli_fetch_assoc($data);
                     <label for="recipient-name" class="col-form-label"><?php echo $result['AUTHERNAME']; ?></label>
                 </div>
                 <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label"><b>Number of books:</b></label>
+                    <label for="recipient-name" class="col-form-label"><?php echo $result['NUMBER']; ?></label>
+                </div>
+                <div class="mb-3">
                     <label for="recipient-name" class="col-form-label"><b>Book Type</b></label>
                     <div class="mb-3">
                     <label for="recipient-name" class="col-form-label"><?php 

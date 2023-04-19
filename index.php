@@ -1,6 +1,5 @@
 <?php
 include('Attach.php');
-error_reporting(0);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -39,20 +38,17 @@ function sendmail($email, $v_code)
         }
 }
 
+$admin_result = mysqli_query($con, "SELECT * FROM admin");
+$admin_num = mysqli_num_rows($admin_result);
+$admin_exists = ($admin_num > 0);
 
 if(isset($_POST['submit'])){
-
     $name = mysqli_real_escape_string($con,$_POST['name']);
     $email = mysqli_real_escape_string($con,$_POST['email']);
     $pass = md5($_POST['password']);
     $cpass = md5($_POST['cpassword']);
     $user_type = $_POST['user_type'];
     $v_code = bin2hex(random_bytes(12));
-    $new_pass = md5($_POST['new_password']);
-
-    // Check if an admin already exists in the database
-    $admin_result = mysqli_query($con, "SELECT * FROM admin");
-    $admin_num = mysqli_num_rows($admin_result);
 
     if($user_type == 'admin' && $admin_num > 0) {
         $error[] = 'An admin account already exists';
@@ -102,9 +98,11 @@ if(isset($_POST['submit'])){
             <input type="password" name="password" required placeholder="Enter your password">
             <input type="password" name="cpassword" required placeholder="Confirm your password">
             <select name="user_type">
-                <option value="admin">admin</option>
-                <option value="user">user</option>
-            </select>
+    <?php if (!$admin_exists): ?>
+    <option value="admin">admin</option>
+    <?php endif; ?>
+    <option value="user">user</option>
+</select>
             <input type="submit" name="submit" value="Register Now" class="form-btn">
             <p>Already have an account? <a href="LOGIN.php">Login now</a></p>
         </form>

@@ -1,14 +1,13 @@
 <?php
 session_start();
 include('Attach.php');
-error_reporting(0);
 if(isset($_POST['submit'])){
 
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $pass = md5($_POST['password']);
     $user_type = $_POST['user_type'];
     
-    $new_password = md5($_POST['new_password']);
+    $new_password = isset($_POST['new_password']) ? md5($_POST['new_password']) : '';
 
     $select = "SELECT * FROM admin WHERE email = '$email' && password IN ('$new_password', '$pass')";
     $result = mysqli_query($con, $select);
@@ -17,9 +16,10 @@ if(isset($_POST['submit'])){
         $row = mysqli_fetch_assoc($result);
         if($row['is_verified']==1){
             if($row['user_type'] === $user_type){
-                if($user_type === 'admin'){
+                if($user_type === 'admin' && $row['email'] == $email && $row['password'] === $pass){
                     $_SESSION['user_name'] = $row['name'];
-                    header("location:Admin.php?email=$email");
+                    $_SESSION['user_type'] = 'admin';
+                    header("location: Admin.php");
                 }
                 elseif($user_type==='user') {
                     $_SESSION['user_name'] = $row['name'];

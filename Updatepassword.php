@@ -22,7 +22,7 @@
                   echo  "<div class=form-container>
                   <form method='POST'>
                   <h3>Create New Password</h3>
-                  <input type='password' placeholder='New Password' name='Password'>
+                  <input type='password' placeholder='New Password' name='password'>
                   <input type='submit' name='updatepassword' value='UPDATE' class='form-btn'>
                   <input type='hidden' name='email' value='$_GET[email]'>
                   </form>
@@ -49,7 +49,7 @@
     <?php 
     
     if(isset($_POST['updatepassword'])){
-        if(empty($_POST['Password'])){
+        if(empty($_POST['password'])){
             echo "<script>
                         alert('Please enter a new password');
                         window.location.href='Updatepassword.php?email=".$_POST['email']."&reset_token=".$_GET['reset_token']."';
@@ -57,7 +57,7 @@
             exit;
         }
         $pass=md5($_POST['password']);
-        $update = "UPDATE admin SET password='$pass',resettoken=NULL,resettokenexpire=NULL WHERE email='$_POST[email]'";
+        $update = "UPDATE admin SET password='$pass',resettoken=NULL,resettokenexpire=NULL WHERE email='$_POST[email]' AND resettoken='$_GET[reset_token]'";
         
         if(mysqli_query($con,$update))
         {

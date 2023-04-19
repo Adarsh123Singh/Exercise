@@ -71,11 +71,9 @@
 
 <?php
     include('Attach.php');
-    error_reporting(0);
     $sort_option = "";
     $numberPages = 5;
-
-
+    $search = '';
 
     if (isset($_POST['submit'])) {
         $search = $_POST['search'];

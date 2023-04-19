@@ -27,7 +27,7 @@ $result = mysqli_fetch_assoc($data);
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <a href="http://localhost:8080/library/admin.php"><input type="submit" value="Back" class="btn btn-light"></a>
+            <a href="http://localhost:8080/library/Admin.php"><input type="submit" value="Back" class="btn btn-light"></a>
             <span class="navbar mb-0 h1">Update Book Details</span>
         </div>
     </nav>

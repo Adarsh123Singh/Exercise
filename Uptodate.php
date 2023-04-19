@@ -43,30 +43,6 @@ $result = mysqli_fetch_assoc($data);
                     <label for="recipient-name" class="col-form-label">User Email</label>
                     <input type="text" value="<?php echo $result['email']; ?>" class="form-control" name="email" requtred>
                 </div>
-                <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label">User Type</label>
-                    <div class="mb-3">
-
-                        <select class="form-select" aria-label="Default select example" name="user_type" required>
-                            <option selected></option>
-                            <option value="admin"
-                            <?php 
-                                if($result['user_type']=='admin'){
-                                    echo "selected";
-                                }
-                            ?>
-                            >admin</option>
-                            <option value="user"
-                            <?php 
-                                if($result['user_type']=='user'){
-                                    echo "selected";
-                                }
-                            ?>
-                            >user</option>
-                        </select>
-
-                    </div>
-                </div>
                 <input type="submit" value="Update" class="btn btn-primary" name="update">
         </form>
     </div>

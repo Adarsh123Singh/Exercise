@@ -1,5 +1,4 @@
 <?php 
-error_reporting(0);
 include("edit.php"); 
 
 $id = $_GET['id'];
@@ -52,6 +51,10 @@ $result = mysqli_fetch_assoc($data);
                 <div class="mb-3">
                     <label for="recipient-name" class="col-form-label"><b>Author Name:</b></label>
                     <label for="recipient-name" class="col-form-label"><?php echo $result['AUTHERNAME']; ?></label>
+                </div>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label"><b>Number of books:</b></label>
+                    <label for="recipient-name" class="col-form-label"><?php echo $result['NUMBER']; ?></label>
                 </div>
                 <div class="mb-3">
                     <label for="recipient-name" class="col-form-label"><b>Book Type</b></label>
