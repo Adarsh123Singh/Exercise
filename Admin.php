@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 // Check if user is authenticated
 if (!isset($_SESSION['user_name'])) {
     header("location: LOGIN.php");
@@ -80,10 +79,10 @@ td{
         <form class="d-flex" method="GET" action="">
             <div class="input-group mb-3 cont">
                 <select name="sort_alphabet" class="input-group-text">
-                    <option value="">--Select Option</option>
-                    <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'a-z');
+                    <option value="">--SELECT OPTION</option>
+                    <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'a-z')
                                         echo "selected"; ?>>A-Z</option>
-                    <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'z-a');
+                    <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'z-a')
                                         echo "selected"; ?>>Z-A</option>
                 </select>
                 <button class="input-group-text btn btn-light">sort</button>
@@ -126,18 +125,19 @@ td{
 
     $startinglimit = ($page - 1) * $numberPages;
 
-    $sql = "SELECT * FROM edit WHERE id like '%$search%' Or BOOKNAME like '%$search%' Or AUTHERNAME like '%$search%' ORDER BY BOOKNAME $sort_option LIMIT $startinglimit,$numberPages ";
+    $sql = "SELECT * FROM edit WHERE id like '%$search%' Or BOOKNAME like '%$search%' Or AUTHERNAME like '%$search%' ORDER BY id $sort_option LIMIT $startinglimit,$numberPages ";
     $data = mysqli_query($con, $sql);
     if ($total != 0) {
         ?>
     <center>
-        <table border='3' cellspacing='7' width=80%>
+        <table border='3' cellspacing='7' width=89%>
             <tr>
                 <th width=4%>S.No.</th>
                 <th width=5%>Images</th>
                 <th width=9%>Book Name</th>
                 <th width=9%>Book Title</th>
                 <th width=9%>Author Name</th>
+                <th width=9%>No. of Books</th>
                 <th width=22%>Description</th>
                 <th width=22%>Operation</th>
             </tr>
@@ -150,6 +150,7 @@ td{
                     <td>" . $result['BOOKNAME'] . "</td>
                     <td>" . $result['BOOKTITLE'] . "</td>
                     <td>" . $result['AUTHERNAME'] . "</td>
+                    <td>" . $result['NUMBER'] . "</td>
                     <td>" . substr($result['DESCRIPTION'], 0, 100) . "...</td>
 
                     <td><a href='Switch.php?id=$result[id]'><input type='submit' value='Update' class='btn btn-success'></a>
@@ -168,15 +169,46 @@ td{
 
     ?>
         </table>
-<?php
-    if ($page > 1) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page - 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Previous</a></button>';
-    }
-    for ($btn = 1; $btn <= $num; $btn++) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
-    }
-    if ($page < $num) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page + 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Next</a></button>';
-    }
+        <?php
+if ($page > 1) {
+    echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page - 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Previous</a></button>';
+}
+
+// show the first page link
+if ($page > 2) {
+    echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=1&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">1</a></button>';
+}
+
+// show dots if there are more than 3 pages
+if ($page > 3) {
+    echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
+}
+
+// show two links before the current page
+for ($btn = max(1, $page - 1); $btn < $page; $btn++) {
+    echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
+}
+
+// show the current page link
+echo '<button class="btn btn-primary mx-1 my-3">' . $page . '</button>';
+
+// show two links after the current page
+for ($btn = $page + 1; $btn <= min($page + 1, $num); $btn++) {
+    echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
+}
+
+// show dots if there are more than 3 pages
+if ($page < $num - 2) {
+    echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
+}
+
+// show the last page link
+if ($page < $num - 1) {
+    echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $num . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $num . '</a></button>';
+}
+
+if ($page < $num) {
+    echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page + 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Next</a></button>';
+}
 ?>
     </center>

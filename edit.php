@@ -12,5 +12,5 @@ $con = mysqli_connect($servername,$username,$password,$dbname);
     else{
         echo "Connection failed" . mysqli_connect_error();
     }
-
+    
 ?>

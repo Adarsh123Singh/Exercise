@@ -32,6 +32,9 @@
         .cont1 {
             margin: 20px 590px 20px 630px;
         }
+        table{
+            margin-top: 100px;
+        }
     </style>
     
 </head>
@@ -47,10 +50,8 @@
         <form method="POST" action="">
             <div class="input-group-text mb-3 cont1">
                 <input class="input-group-text" type="text" name="search" placeholder="Search Books" required>
-                <button class="btn btn-outline-success" name="submit" type="submit">Search</button>
+                <button class="btn btn-outline-success" name="submit" type="submit" >Search</button>
             </div>
-        </form>
-        <form class="d-flex" method="GET" action="">
             <div class="input-group mb-3 cont">
                 <select name="sort_alphabet" class="input-group-text">
                     <option value="">--Select Option</option>
@@ -131,15 +132,13 @@ if ($total != 0) {
                     <a href='DELET.php?id=$result[id]'><input type='submit' value='Delete' class='btn btn-danger' onclick='return checkdelete()'></a>
                     </td>
                 </tr>";
-
-
         $a++;
     }
 }
      else {
         echo "No Records Count";
     }
-
+    
     ?>
             </table>
             <?php

@@ -19,14 +19,19 @@ if(isset($_POST['submit'])){
                 if($user_type === 'admin' && $row['email'] == $email && $row['password'] === $pass){
                     $_SESSION['user_name'] = $row['name'];
                     $_SESSION['user_type'] = 'admin';
+                    $_SESSION['email'] = $email;
                     header("location: Admin.php");
                 }
                 elseif($user_type==='user') {
                     $_SESSION['user_name'] = $row['name'];
+                    $_SESSION['user_type'] = $row['user'];
+                    $_SESSION['email'] = $email;
                     header("location:User.php?email=$email");
                 }
                 else{
                     $_SESSION['user_name'] = $row['name'];
+                    $_SESSION['user_type'] = $row['subadmin'];
+                    $_SESSION['email'] = $email;
                     header("location:Subadmin.php?email=$email");
                 }
             } else {

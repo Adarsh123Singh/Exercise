@@ -30,7 +30,7 @@
                     <input type="text" required class="form-control" name="AUTHERNAME">
                 </div>
                 <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label"><b>NO. of Books</b></label>
+                    <label for="recipient-name" class="col-form-label"><b>No. of Books</b></label>
                     <input type="text" required class="form-control" name="NUMBER">
                 </div>
                 <div class="mb-3">
