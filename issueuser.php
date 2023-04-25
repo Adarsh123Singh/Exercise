@@ -97,7 +97,7 @@ if($data) {
                     <td><input type='text' value='$result[AUTHERNAME]' name='AUTHORNAME' readonly></td>
                     <td>
 
-                    <input type='submit' name='SEND_REQUEST' value='Send Request' class='btn btn-outline-danger'>
+                    <input type='submit' name='SEND_REQUEST' value='Send Request' class='btn btn-danger'>
                     </form>
 
                     </td>

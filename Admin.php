@@ -65,6 +65,7 @@ td{
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">Book Details</span>
             <a href="EDIT_DETAILS.php"><button type="button" class="btn btn-outline-success">ADD BOOK</button></a>
+            <a href="USERREQUEST.php"><button type="button" class="btn btn-outline-success">User Request</button></a>
             <a href="LOGOUT.php"><button type="button" class="btn btn-outline-primary">Log Out</button></a>
             <a href="userdeatils.php"><button type="button" class="btn btn-outline-light">Other user Details</button></a>
         </div>

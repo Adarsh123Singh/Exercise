@@ -150,7 +150,7 @@ if ($total != 0) {
 
                     <a href='viewsub.php?id=$result[id]'><input type='submit' value='View' class='btn btn-info'></a>
 
-                    <a href='issuesubadmin.php?id=$result[id]' hidden><input type='submit' value='Book Issue' class='btn btn-dark'></a>
+                    <a href='issuesubadmin.php?id=$result[id]'><input type='submit' value='Book Issue' class='btn btn-dark'></a>
                     </td>
                 </tr>";
 
