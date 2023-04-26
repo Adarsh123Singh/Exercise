@@ -74,7 +74,7 @@ if($data) {
 
     ?>
     <center>
-        <table border='3' cellspacing='7' width=63%>
+        <table border='3' cellspacing='7' width=78%>
             <tr>
                 <th width=2% height=2%>S.No.</th>
                 <th width=11% height=2%>USER NAME</th>
@@ -92,7 +92,7 @@ if($data) {
                     <td>$a</td>
                     <td><input type='text' value='$user_name' name='name' readonly></td>
                     <td><input type='text' value='$user_email' name='email' readonly></td>
-                    <td><img src='" . $result['img_post'] . "'></td>
+                    <td><input type='img' value='$result[img_post]' name='img_post' readonly></td>
                     <td><input type='text' value='$result[BOOKNAME]' name='BOOKNAME' readonly></td>
                     <td><input type='text' value='$result[AUTHERNAME]' name='AUTHORNAME' readonly></td>
                     <td>

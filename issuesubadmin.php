@@ -92,7 +92,7 @@ if($data) {
                     <td>$a</td>
                     <td><input type='text' value='$user_name' name='name' readonly></td>
                     <td><input type='text' value='$user_email' name='email' readonly></td>
-                    <td><img src='" . $result['img_post'] . "'></td>
+                    <td><input type='text' value='$result[img_post]' name='img_post' readonly></td>
                     <td><input type='text' value='$result[BOOKNAME]' name='BOOKNAME' readonly></td>
                     <td><input type='text' value='$result[AUTHERNAME]' name='AUTHORNAME' readonly></td>
                     <td>
