@@ -39,6 +39,9 @@
 td{
     padding: 7px;
 }
+form,a{
+    margin: 5px;
+}
     </style>
 
 </head>
@@ -100,12 +103,13 @@ td{
     if ($total != 0) {
         ?>
     <center>
-        <table border='3' cellspacing='7' width=77%>
+        <table border='3' cellspacing='7' width=86%>
             <tr>
                 <th width=2%>S.No.</th>
                 <th width=9%>Name</th>
                 <th width=15%>Email</th>
                 <th width=9%>Book Name</th>
+                <th width=9%>No. of books</th>
                 <th width=9%>Image</th>
                 <th width=9%>Author Name</th>
                 <th width=9%>Datetime</th>
@@ -119,22 +123,23 @@ td{
                     <td>".$result['name']."</td>
                     <td>".$result['email']."</td>
                     <td>".$result['BOOKNAME']."</td>
-                    <td><img src='" . $result['img_post'] . "'></td>
+                    <td>".$result['NUMBER']."</td>
+                    <td><img src='". $result['img_post'] ."'></td>
                     <td>".$result['AUTHORNAME']."</td>
-                    <td>".$result['Datetime']."</td>
+                    <td>".$result['Datetime'] ."</td>
                     <td>";
                     if($result['Accept'] == 0){
-                        echo "<form action='Accept.php?id=$result[id]' method='POST'>
+                        echo "<form action='Accept.php?id=$result[id]?NUMBER=$result[NUMBER]' method='POST'>
                         <input type='submit' value='Accept' class='btn btn-success' name='issue'>
                         </form>
-                        
                         <a href='Declined.php?id=$result[id]'><input type='submit' value='Declined' class='btn btn-danger' onclick='return checkdelete()'></a>";
-                    }else{
-
+                    }
+                    else
+                    {
                    echo "<form action='' method='GET'><input type='submit' value='Accepted' class='btn btn-success' name='issue' disabled></form>
-                    <a href=''><input type='submit' value='Declined' class='btn btn-danger' disabled></a>";}
-
-                  echo  "</td>
+                    <a href=''><input type='submit' value='Declined' class='btn btn-danger' disabled></a>";
+                }
+                  "</td>
                     
                 </tr>";
                 $a++;
@@ -143,7 +148,6 @@ td{
         echo "No Records Count";
     }
 
-    ?>
-            
+    ?>  
         </table>
     </center>

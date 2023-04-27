@@ -122,7 +122,7 @@ $data = mysqli_query($con, $sql);
 if ($total != 0) {
 ?>
     <center>
-        <table border='3' cellspacing='7' width=89%>
+        <table border='3' cellspacing='7' width=91%>
             <tr>
                 <th width=4%>S.No.</th>
                 <th width=5%>Images</th>
@@ -131,7 +131,7 @@ if ($total != 0) {
                 <th width=9%>Author Name</th>
                 <th width=8%>No. of Books</th>
                 <th width=22%>Description</th>
-                <th width=23%>Operation</th>
+                <th width=25%>Operation</th>
             </tr>
         <?php
         $a = ($page - 1) * $numberPages + 1;
@@ -149,10 +149,15 @@ if ($total != 0) {
 
                     <a href='deletesub.php?id=$result[id]'><input type='submit' value='Delete' class='btn btn-danger' onclick='return checkdelete()'></a>
 
-                    <a href='viewsub.php?id=$result[id]'><input type='submit' value='View' class='btn btn-info'></a>
-
-                    <a href='issuesubadmin.php?id=$result[id]'><input type='submit' value='Book Issue' class='btn btn-dark'></a>
-                    </td>
+                    <a href='viewsub.php?id=$result[id]'><input type='submit' value='View' class='btn btn-info'></a>";
+                    if($result['issuesub'] == '0'){
+                        echo "<a href='issuesubadmin.php?id=$result[id]'><input type='submit' value='Book Issue' class='btn btn-dark'></a>";
+                    }
+                    else{
+                        echo "<a href=''><input type='submit' value='Book Issued' class='btn btn-dark' disabled></a>";
+                    }
+                    
+                   echo "</td>
                 </tr>";
 
 

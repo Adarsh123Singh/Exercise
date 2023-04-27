@@ -171,45 +171,47 @@ td{
     ?>
         </table>
         <?php
-if ($page > 1) {
-    echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page - 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Previous</a></button>';
-}
+if($total != 0) {
+    if ($page > 1) {
+        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page - 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Previous</a></button>';
+    }
 
-// show the first page link
-if ($page > 2) {
-    echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=1&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">1</a></button>';
-}
+    // show the first page link
+    if ($page > 2) {
+        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=1&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">1</a></button>';
+    }
 
-// show dots if there are more than 3 pages
-if ($page > 3) {
-    echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
-}
+    // show dots if there are more than 3 pages
+    if ($page > 3) {
+        echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
+    }
 
-// show two links before the current page
-for ($btn = max(1, $page - 1); $btn < $page; $btn++) {
-    echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
-}
+    // show two links before the current page
+    for ($btn = max(1, $page - 1); $btn < $page; $btn++) {
+        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
+    }
 
-// show the current page link
-echo '<button class="btn btn-primary mx-1 my-3">' . $page . '</button>';
+    // show the current page link
+    echo '<button class="btn btn-primary mx-1 my-3">' . $page . '</button>';
 
-// show two links after the current page
-for ($btn = $page + 1; $btn <= min($page + 1, $num); $btn++) {
-    echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
-}
+    // show two links after the current page
+    for ($btn = $page + 1; $btn <= min($page + 1, $num); $btn++) {
+        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
+    }
 
-// show dots if there are more than 3 pages
-if ($page < $num - 2) {
-    echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
-}
+    // show dots if there are more than 3 pages
+    if ($page < $num - 2) {
+        echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
+    }
 
-// show the last page link
-if ($page < $num - 1) {
-    echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $num . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $num . '</a></button>';
-}
+    // show the last page link
+    if ($page < $num - 1) {
+        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $num . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $num . '</a></button>';
+    }
 
-if ($page < $num) {
-    echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page + 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Next</a></button>';
+    if ($page < $num) {
+        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page + 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Next</a></button>';
+    }
 }
 ?>
     </center>

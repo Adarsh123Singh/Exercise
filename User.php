@@ -150,10 +150,14 @@ if ($total != 0) {
                     <td>" . $result['NUMBER'] . "</td>
                     <td>" . substr($result['DESCRIPTION'], 0, 100) . "...</td>
 
-                    <td><a href='viewuser.php?id=$result[id]'><input type='submit' value='View' class='btn btn-info'></a>
-
-                    <a href='issueuser.php?id=$result[id]'><input type='submit' value='Book Issue' class='btn btn-dark'></a>
-                    </td>
+                    <td><a href='viewuser.php?id=$result[id]'><input type='submit' value='View' class='btn btn-info'></a>";
+                    if($result['issueuser'] == '0'){
+                        echo "<a href='issueuser.php?id=$result[id]'><input type='submit' value='Book Issue' class='btn btn-dark'></a>";
+                    }else{
+                        echo "<a href=''><input type='submit' value='Book Issued' class='btn btn-dark' disabled></a>";
+                    }
+                    
+                    echo "</td>
                 </tr>";
             $a++;
         }

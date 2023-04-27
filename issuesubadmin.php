@@ -7,7 +7,7 @@ $id = $_GET['id'];
 session_start();
 $user_name= $_SESSION['user_name'];
 $user_email = $_SESSION['email'];
-$query = "SELECT * FROM edit where id ='$id'";
+$query = "SELECT * FROM edit where id ='$id' AND issuesub='0'";
 $data = mysqli_query($con,$query);
 
 
@@ -70,23 +70,27 @@ td{
 <?php
 
 if($data) {
-
+    if(mysqli_num_rows($data)!=0){
 
     ?>
     <center>
-        <table border='3' cellspacing='7' width=63%>
+        <table border='3' cellspacing='7' width=72%>
             <tr>
                 <th width=2% height=2%>S.No.</th>
                 <th width=11% height=2%>USER NAME</th>
                 <th width=15% height=2%>USER EMAIL</th>
                 <th width=5% height=2%>Images</th>
                 <th width=15% height=2%>Book Name</th>
+                <th width=9%>No. of Books</th>
                 <th width=15% height=2%>Author Name</th>
                 <th width=15% height=2%>Operations</th>
             </tr>
         <?php
             $a=1;
     while ($result = mysqli_fetch_assoc($data)) {
+        $id = $result['id'];
+        $Update = "UPDATE edit SET issuesub='1' WHERE id=$id";
+        if(mysqli_query($con, $Update)){
         echo "<tr>                   
                     <form method='POST' action='sendsub.php' enctype='multipart/form-data'>
                     <td>$a</td>
@@ -94,6 +98,7 @@ if($data) {
                     <td><input type='text' value='$user_email' name='email' readonly></td>
                     <td><input type='text' value='$result[img_post]' name='img_post' readonly></td>
                     <td><input type='text' value='$result[BOOKNAME]' name='BOOKNAME' readonly></td>
+                    <td><input type='text' value='$result[NUMBER]' name='NUMBER' readonly></td>
                     <td><input type='text' value='$result[AUTHERNAME]' name='AUTHORNAME' readonly></td>
                     <td>
 
@@ -104,6 +109,8 @@ if($data) {
                 </tr>";
         $a++;
     }
+}
+}
 }
         ?>
         </table>
