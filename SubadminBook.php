@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -33,15 +34,17 @@
         }
 
         img {
-    height: 100px;
-    width: 100px;
-    }
-td{
-    padding: 7px;
-}
-form{
-    margin: 5px;
-}
+            height: 100px;
+            width: 100px;
+        }
+
+        td {
+            padding: 7px;
+        }
+
+        form {
+            margin: 5px;
+        }
     </style>
 
 </head>
@@ -65,9 +68,9 @@ form{
                 <select name="sort_alphabet" class="input-group-text">
                     <option value="">--SELECT OPTION</option>
                     <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'a-z')
-                                        echo "selected"; ?>>A-Z</option>
+                                            echo "selected"; ?>>A-Z</option>
                     <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'z-a')
-                                        echo "selected"; ?>>Z-A</option>
+                                            echo "selected"; ?>>Z-A</option>
                 </select>
                 <button class="input-group-text btn btn-light">sort</button>
             </div>
@@ -80,28 +83,28 @@ form{
 
 <?php
 session_start();
-    include('edit.php');
-    $sort_option = "";
-    $search = '';
-    if (isset($_POST['submit'])) {
-        $search = $_POST['search'];
-    }
+include('edit.php');
+$sort_option = "";
+$search = '';
+if (isset($_POST['submit'])) {
+    $search = $_POST['search'];
+}
 
-    if (isset($_GET['sort_alphabet'])) {
-        if ($_GET['sort_alphabet'] == 'a-z') {
-            $sort_option = "ASC";
-        } elseif ($_GET['sort_alphabet'] == 'z-a') {
-            $sort_option = "DESC";
-        }
+if (isset($_GET['sort_alphabet'])) {
+    if ($_GET['sort_alphabet'] == 'a-z') {
+        $sort_option = "ASC";
+    } elseif ($_GET['sort_alphabet'] == 'z-a') {
+        $sort_option = "DESC";
     }
-    $count_query = "SELECT COUNT(*) as count FROM issue WHERE id like '%$search%' or BOOKNAME like '%$search%' or AUTHORNAME like '%$search%'";
-    $count_result = mysqli_query($con, $count_query);
-    $count_row = mysqli_fetch_assoc($count_result);
-    $total = $count_row['count'];
-    $sql = "SELECT * FROM issue WHERE id like '%$search%' Or BOOKNAME like '%$search%' Or AUTHORNAME like '%$search%' ORDER BY id $sort_option";
-    $data = mysqli_query($con, $sql);
-    if ($total != 0) {
-        ?>
+}
+$count_query = "SELECT COUNT(*) as count FROM issue WHERE id like '%$search%' or BOOKNAME like '%$search%' or AUTHORNAME like '%$search%'";
+$count_result = mysqli_query($con, $count_query);
+$count_row = mysqli_fetch_assoc($count_result);
+$total = $count_row['count'];
+$sql = "SELECT * FROM issue WHERE id like '%$search%' Or BOOKNAME like '%$search%' Or AUTHORNAME like '%$search%' ORDER BY id $sort_option";
+$data = mysqli_query($con, $sql);
+if ($total != 0) {
+?>
     <center>
         <table border='3' cellspacing='7' width=46%>
             <tr>
@@ -109,60 +112,62 @@ session_start();
                 <th width=5%>Images</th>
                 <th width=9%>Book Name</th>
                 <th width=9%>Author Name</th>
-                <th width=9%>Date And Time</th>
+                <th width=9%>Date</th>
+                <th width=9%>Time</th>
                 <th width=10%>Operation</th>
             </tr>
         <?php
-    $a=1;
-    while ($result = mysqli_fetch_assoc($data)) {
-        if($result['Accept'] =='1') {
-            if($_SESSION['email'] == $result['email']) {
-            echo "<tr>
+        $a = 1;
+        while ($result = mysqli_fetch_assoc($data)) {
+            if ($result['Accept'] == '1') {
+                if ($_SESSION['email'] == $result['email']) {
+                    echo "<tr>
                     <td>$a</td>
                     <td><img src='" . $result['img_post'] . "'></td>
                     <td>" . $result['BOOKNAME'] . "</td>
                     <td>" . $result['AUTHORNAME'] . "</td>
-                    <td>" . $result['Datetime'] ."</td>
+                    <td>" . $result['Date'] . "</td>
+                    <td>" . $result['Time'] . "</td>
                     <td>";
-            if($result['MARK'] == 0 && $result['SUBMIT'] == 0) {
-                echo "<form method='POST' action='MARK.php?id=$result[id]'>
+                    if ($result['MARK'] == 0 && $result['SUBMIT'] == 0) {
+                        echo "<form method='POST' action='MARKSUB.php?id=$result[id]'>
                     <input type='submit' value='Mark' class='btn btn-success' name='mark'>
                     </form>
-                    <form method='POST' action='SUBMIT.php?id=$result[id]'>
+                    <form method='POST' action='SUBMITSUB.php?id=$result[id]'>
                     <input type='submit' value='Submit' class='btn btn-dark' name='submit'>
                     </form>";
-            } elseif($result['MARK'] == 1 && $result['SUBMIT'] == 0) {
-                echo "<form method='POST' action='MARK.php?id=$result[id]'>
+                    } elseif ($result['MARK'] == 1 && $result['SUBMIT'] == 0) {
+                        echo "<form method='POST' action='MARKSUB.php?id=$result[id]'>
                     <input type='submit' value='Marked as read' class='btn btn-success' name='mark' disabled>
                     </form>
-                    <form method='POST' action='SUBMIT.php?id=$result[id]'>
+                    <form method='POST' action='SUBMITSUB.php?id=$result[id]'>
                     <input type='submit' value='Submit' class='btn btn-dark' name='submit'>
                     </form>";
-            } elseif($result['MARK'] == 0 && $result['SUBMIT'] == 1) {
-                echo "<form method='POST' action='MARK.php?id=$result[id]'>
+                    } elseif ($result['MARK'] == 0 && $result['SUBMIT'] == 1) {
+                        echo "<form method='POST' action='MARKSUB.php?id=$result[id]'>
                     <input type='submit' value='Not Completed' class='btn btn-success' name='mark' disabled>
                     </form>
-                    <form method='POST' action='SUBMIT.php?id=$result[id]'>
+                    <form method='POST' action='SUBMITSUB.php?id=$result[id]'>
                     <input type='submit' value='Submitted' class='btn btn-dark' name='submit' disabled>
                     </form>";
-            } else {
-                echo "<form method='POST' action='MARK.php?id=$result[id]'>
+                    } else {
+                        echo "<form method='POST' action='MARKSUB.php?id=$result[id]'>
                     <input type='submit' value='Marked as read' class='btn btn-success' name='mark' disabled>
                     </form>
-                    <form method='POST' action='SUBMIT.php?id=$result[id]'>
+                    <form method='POST' action='SUBMITSUB.php?id=$result[id]'>
                     <input type='submit' value='Submitted' class='btn btn-dark' name='submit' disabled>
                     </form>";
-            }
-            echo "</td>
+                    }
+                    echo "</td>
                 </tr>";
 
-            $a++;
+                    $a++;
+                }
+            }
         }
-    }
-}
     } else {
         echo "No Records Count";
     }
-    ?>
+        ?>
         </table>
     </center>

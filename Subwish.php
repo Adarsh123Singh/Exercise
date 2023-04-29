@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>Book Details</title>
+    <title>User Wish Details</title>
     <style>
         table {
             background-color: lightgrey;
@@ -49,7 +49,7 @@ form{
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Issue Book's</span>
+            <span class="navbar-brand mb-0 h1">Wish to Read</span>
             <a href="LOGOUT.php"><button type="button" class="btn btn-outline-primary">Log Out</button></a>
         </div>
     </nav>
@@ -94,77 +94,55 @@ session_start();
             $sort_option = "DESC";
         }
     }
-    $count_query = "SELECT COUNT(*) as count FROM issue WHERE id like '%$search%' or BOOKNAME like '%$search%' or AUTHORNAME like '%$search%'";
+    $count_query = "SELECT COUNT(*) as count FROM edit WHERE id like '%$search%' or BOOKNAME like '%$search%' or AUTHERNAME like '%$search%'";
     $count_result = mysqli_query($con, $count_query);
     $count_row = mysqli_fetch_assoc($count_result);
     $total = $count_row['count'];
-    $sql = "SELECT * FROM issue WHERE id like '%$search%' Or BOOKNAME like '%$search%' Or AUTHORNAME like '%$search%' ORDER BY id $sort_option";
+    $sql = "SELECT * FROM edit WHERE id like '%$search%' Or BOOKNAME like '%$search%' Or AUTHERNAME like '%$search%' ORDER BY id $sort_option";
     $data = mysqli_query($con, $sql);
     if ($total != 0) {
         ?>
     <center>
-        <table border='3' cellspacing='7' width=55%>
+        <table border='3' cellspacing='7' width=63%>
             <tr>
                 <th width=4%>S.No.</th>
                 <th width=5%>Images</th>
                 <th width=9%>Book Name</th>
                 <th width=9%>Author Name</th>
-                <th width=9%>Date</th>
-                <th width=9%>Time</th>
-                <th width=10%>Operation</th>
+                <th width=9%>Book Title</th>
+                <th width=9%>No. of Books</th>
+                <th width=18%>Operations</th>
+                
             </tr>
         <?php
     $a=1;
     while ($result = mysqli_fetch_assoc($data)) {
-        if($result['Accept'] =='1') {
-            if($_SESSION['email'] == $result['email']) {
+if($result['wishsub'] =='1') {
 
 
-            echo "<tr>
+    echo "<tr>
                     <td>$a</td>
                     <td><img src='" . $result['img_post'] . "'></td>
                     <td>" . $result['BOOKNAME'] . "</td>
-                    <td>" . $result['AUTHORNAME'] . "</td>
-                    <td>" . $result['Date'] ."</td>
-                    <td>" . $result['Time'] ."</td>
-                    <td>";
-            if($result['MARK'] == 0 && $result['SUBMIT'] == 0) {
-                echo "<form method='POST' action='MARKuser.php?id=$result[id]'>
-                    <input type='submit' value='Mark' class='btn btn-success' name='mark'>
-                    </form>
-                    <form method='POST' action='SUBMITUSER.php?id=$result[id]'>
-                    <input type='submit' value='Submit' class='btn btn-dark' name='submit'>
-                    </form>";
-            } elseif($result['MARK'] == 1 && $result['SUBMIT'] == 0) {
-                echo "<form method='POST' action='MARKuser.php?id=$result[id]'>
-                    <input type='submit' value='Marked as read' class='btn btn-success' name='mark' disabled>
-                    </form>
-                    <form method='POST' action='SUBMITUSER.php?id=$result[id]'>
-                    <input type='submit' value='Submit' class='btn btn-dark' name='submit'>
-                    </form>";
-            } elseif($result['MARK'] == 0 && $result['SUBMIT'] == 1) {
-                echo "<form method='POST' action='MARKuser.php?id=$result[id]'>
-                    <input type='submit' value='Not Completed' class='btn btn-success' name='mark' disabled>
-                    </form>
-                    <form method='POST' action='SUBMITUSER.php?id=$result[id]'>
-                    <input type='submit' value='Submitted' class='btn btn-dark' name='submit' disabled>
-                    </form>";
-            } else {
-                echo "<form method='POST' action='MARKuser.php?id=$result[id]'>
-                    <input type='submit' value='Marked as read' class='btn btn-success' name='mark' disabled>
-                    </form>
-                    <form method='POST' action='SUBMITUSER.php?id=$result[id]'>
-                    <input type='submit' value='Submitted' class='btn btn-dark' name='submit' disabled>
-                    </form>";
-            }
-            echo "</td>
+                    <td>" . $result['AUTHERNAME'] . "</td>
+                    <td>" . $result['BOOKTITLE'] . "</td>
+                    <td>" . $result['NUMBER'] . "</td>
+                    <td><a href='viewsub.php?id=$result[id]'><input type='submit' value='View' class='btn btn-info'></a>";
+                    if($result['issuesub'] == '0'){
+                        echo "<a href='issuesubadmin.php?id=$result[id]'><input type='submit' value='Book Issue' class='btn btn-dark'></a>";
+                    }else{
+                        echo "<a href=''><input type='submit' value='Book Issued' class='btn btn-dark' disabled></a>";
+                    }
+                    
+                    echo 
+                    "</td>
                 </tr>";
 
-            $a++;
-        }
+        $a++;
     }
 }
-    } else {
+    }
+     else {
         echo "No Records Count";
     }
 

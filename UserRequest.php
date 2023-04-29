@@ -29,7 +29,7 @@
 
         .cont,
         .cont1 {
-            margin: 20px 590px 20px 630px;
+            margin: 20px 580px 20px 630px;
         }
 
         img {
@@ -103,16 +103,17 @@ form,a{
     if ($total != 0) {
         ?>
     <center>
-        <table border='3' cellspacing='7' width=86%>
+        <table border='3' cellspacing='7' width=81%>
             <tr>
                 <th width=2%>S.No.</th>
-                <th width=9%>Name</th>
+                <th width=4%>Name</th>
                 <th width=15%>Email</th>
                 <th width=9%>Book Name</th>
                 <th width=9%>No. of books</th>
                 <th width=9%>Image</th>
                 <th width=9%>Author Name</th>
-                <th width=9%>Datetime</th>
+                <th width=9%>Date</th>
+                <th width=9%>TIME</th>
                 <th width=15%>Operation</th>
             </tr>
         <?php
@@ -126,7 +127,8 @@ form,a{
                     <td>".$result['NUMBER']."</td>
                     <td><img src='". $result['img_post'] ."'></td>
                     <td>".$result['AUTHORNAME']."</td>
-                    <td>".$result['Datetime'] ."</td>
+                    <td>".$result['Date'] ."</td>
+                    <td>".$result['Time'] ."</td>
                     <td>";
                     if($result['Accept'] == 0){
                         echo "<form action='Accept.php?id=$result[id]?NUMBER=$result[NUMBER]' method='POST'>
