@@ -9,8 +9,8 @@ if ($_POST['submit'] &&  $_GET['id']) {
         if (mysqli_num_rows($result) != 0) {
             if ($row = mysqli_fetch_assoc($result)) {
                 $id = $row['id'];
-
-                $UPDATE = "UPDATE issue SET SUBMIT='1' WHERE id='$id'";
+                $date = date('Y-m-d');
+                $UPDATE = "UPDATE issue SET SUBMIT='1' , Date='$date' WHERE id='$id'";
                 $result = mysqli_query($con, $UPDATE);
                 $BOOK = "SELECT BOOKNAME from issue WHERE id=$id";
                 $result = mysqli_query($con, $BOOK);

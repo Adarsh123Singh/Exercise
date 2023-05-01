@@ -9,8 +9,8 @@ if ($_POST['submit'] && $_GET['id']) {
         if (mysqli_num_rows($result) != 0) {
             if ($row = mysqli_fetch_assoc($result)) {
                 $id = $row['id'];
-
-                $UPDATE = "UPDATE issue SET SUBMIT='1' WHERE id='$id'";
+                $date = date('Y-m-d');
+                $UPDATE = "UPDATE issue SET SUBMIT='1' , DATE='$date' WHERE id='$id'";
                 $result = mysqli_query($con, $UPDATE);
                 $BOOK = "SELECT BOOKNAME from issue WHERE id=$id";
                 $result= mysqli_query($con,$BOOK);
@@ -20,7 +20,7 @@ if ($_POST['submit'] && $_GET['id']) {
                     $result=mysqli_query($con,$edit_query);
                         echo "<script>
                             alert('BOOK SUBMITTED SUCCESSFULLY')
-                            </script>";
+                            window.location.href='UserBook.php';</script>";
                     
                 } else {
                     echo "<script>

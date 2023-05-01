@@ -59,6 +59,7 @@ if (!isset($_SESSION['user_name']) && ($_SESSION['email']) && ($_SESSION['user_t
             <span class="navbar-brand mb-0 h1">Book Details</span>
             <a href="UserBook.php" button type="button" class="btn btn-outline-info">Info</button></a>
             <a href="UserWish.php" button type="button" class="btn btn-outline-success">WISH TO READ</button></a>
+            <a href="hisuser.php"><button type="button" class="btn btn-outline-light">HISTORY</button></a>
             <a href="LOGOUT.php"><button type="button" class="btn btn-outline-primary">Log Out</button></a>
         </div>
     </nav>

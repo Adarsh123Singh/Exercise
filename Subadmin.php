@@ -58,6 +58,7 @@ if (!isset($_SESSION['user_name'])) {
             <a href="SubadminBook.php" button type="button" class="btn btn-outline-info">Info</button></a>
             <a href="Subwish.php" button type="button" class="btn btn-outline-success">Wish to Read</button></a>
             <a href="Editsub.php"><button type="button" class="btn btn-outline-success">ADD BOOK</button></a>
+            <a href="hissub.php"><button type="button" class="btn btn-outline-light">HISTORY</button></a>
             <a href="LOGOUT.php"><button type="button" class="btn btn-outline-primary">Log Out</button></a>
         </div>
     </nav>
