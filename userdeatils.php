@@ -35,6 +35,8 @@
         table{
             margin-top: 100px;
         }
+
+      
     </style>
     
 </head>
@@ -46,26 +48,6 @@
             <a href="ADDMORE.php"><button type="button" class="btn btn-outline-success">Add User's</button></a>
         </div>
     </nav>
-    <div class="con">
-        <form method="POST" action="">
-            <div class="input-group-text mb-3 cont1">
-                <input class="input-group-text" type="text" name="search" placeholder="Search Books" required>
-                <button class="btn btn-outline-success" name="submit" type="submit" >Search</button>
-            </div>
-            <div class="input-group mb-3 cont">
-                <select name="sort_alphabet" class="input-group-text">
-                    <option value="">--Select Option</option>
-                    <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'a-z');
-                        echo "selected"; ?>>A-Z</option>
-                    <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'z-a');
-                        echo "selected"; ?>>Z-A</option>
-                </select>
-                <button class="input-group-text btn btn-light">sort</button>
-            </div>
-        </form>
-    </div>
-
-
 </body>
 
 </html>
@@ -115,7 +97,7 @@ if ($total != 0) {
                     <th width=10%>User Name</th>
                     <th width=10%>User email</th>
                     <th width=10%>User type</th>
-                    <th width=18%>Operation</th>
+                    <th width=18%>Function</th>
                 </tr>
             <?php
     $a = 1;

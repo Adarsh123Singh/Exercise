@@ -9,6 +9,7 @@ if (!isset($_SESSION['user_name'])) {
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -33,20 +34,34 @@ if (!isset($_SESSION['user_name'])) {
         }
 
         .con {
-            align-items: inline-block;
+            display: flex;
+            align-items: center;
         }
 
-        .cont,
-        .cont1 {
-            margin: 20px 590px 20px 630px;
+        .cont
+         {
+            margin: 20px 20px 20px 250px;
         }
-        img{
-            height: 100px;
-            width: 100px;
+
+        .cont1{
+            margin: 20px 20px 20px 300px;
         }
-        td{
+
+        img {
+            height: 200px;
+            width: 200px;
+        }
+
+        td {
             padding: 7px;
         }
+        form{
+            margin: 10px 0 0 5px;
+        }
+
+    a{
+        margin: 0 5px 0 5px;
+    }
     </style>
 
 </head>
@@ -57,8 +72,8 @@ if (!isset($_SESSION['user_name'])) {
             <span class="navbar-brand mb-0 h1">Book Details</span>
             <a href="SubadminBook.php" button type="button" class="btn btn-outline-info">Info</button></a>
             <a href="Subwish.php" button type="button" class="btn btn-outline-success">Wish to Read</button></a>
-            <a href="Editsub.php"><button type="button" class="btn btn-outline-success">ADD BOOK</button></a>
-            <a href="hissub.php"><button type="button" class="btn btn-outline-light">HISTORY</button></a>
+            <a href="Editsub.php"><button type="button" class="btn btn-outline-success">Add Book</button></a>
+            <a href="hissub.php"><button type="button" class="btn btn-outline-light">History</button></a>
             <a href="LOGOUT.php"><button type="button" class="btn btn-outline-primary">Log Out</button></a>
         </div>
     </nav>
@@ -74,9 +89,9 @@ if (!isset($_SESSION['user_name'])) {
                 <select name="sort_alphabet" class="input-group-text">
                     <option value="">--Select Option</option>
                     <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'a-z')
-                                        echo "selected"; ?>>A-Z</option>
+                                            echo "selected"; ?>>A-Z</option>
                     <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'z-a')
-                                        echo "selected"; ?>>Z-A</option>
+                                            echo "selected"; ?>>Z-A</option>
                 </select>
                 <button class="input-group-text btn btn-light">sort</button>
             </div>
@@ -133,7 +148,7 @@ if ($total != 0) {
                 <th width=9%>Author Name</th>
                 <th width=8%>No. of Books</th>
                 <th width=22%>Description</th>
-                <th width=28%>Operation</th>
+                <th width=28%>Function</th>
             </tr>
         <?php
         $a = ($page - 1) * $numberPages + 1;
@@ -152,22 +167,28 @@ if ($total != 0) {
                     <a href='deletesub.php?id=$result[id]'><input type='submit' value='Delete' class='btn btn-danger' onclick='return checkdelete()'></a>
 
                     <a href='viewsub.php?id=$result[id]'><input type='submit' value='View' class='btn btn-info'></a>";
-                    if($result['issuesub'] == '0'){
-                        echo "<a href='issuesubadmin.php?id=$result[id]'><input type='submit' value='Book Issue' class='btn btn-dark'></a>";
-                        if($result['wishsub'] == '0'){
-                            echo "<form action='wishsub.php?id=$result[id]' method='POST'><input type='submit' value='wish' class='btn btn-light' name='wish'></form>";
-                        }else{
-                            echo "<form action='' method='POST'><input type='submit' value='wished' class='btn btn-danger' name='wish'></form>";
-                        }
+            if ($result['issuesub'] == '0') {
+                if ($result['NUMBER'] != '0') {
+                    echo "<a href='issuesubadmin.php?id=$result[id]'><input type='submit' value='Issue' class='btn btn-dark'></a>";
+                    if ($result['wishsub'] == '0') {
+                        echo "<form action='wishsub.php?id=$result[id]' method='POST'><input type='submit' value='wish' class='btn btn-light' name='wish'></form>";
+                    } else {
+                        echo "<form action='' method='POST'><input type='submit' value='wished' class='btn btn-danger' name='wish'></form>";
                     }
-                    else{
-                        echo "<a href=''><input type='submit' value='Book Issued' class='btn btn-dark' disabled></a>";
+                } else {
+                    echo "<a href=''><input type='submit' value='Not Available' class='btn btn-dark' disabled></a>";
+                    if ($result['wishsub'] == '0') {
+                        echo "<form action='wishsub.php?id=$result[id]' method='POST'><input type='submit' value='wish' class='btn btn-light' name='wish'></form>";
+                    } else {
+                        echo "<form action='' method='POST'><input type='submit' value='wished' class='btn btn-danger' name='wish'></form>";
                     }
-                    
-                   echo "</td>
+                }
+            } else {
+                echo "<a href=''><input type='submit' value='Issued' class='btn btn-dark' disabled></a>";
+            }
+
+            echo "</td>
                 </tr>";
-
-
             $a++;
         }
     } else {
@@ -176,47 +197,47 @@ if ($total != 0) {
         ?>
         </table>
         <?php
-if($total !=0) {
-    if ($page > 1) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Subadmin.php?page=' . ($page - 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Previous</a></button>';
-    }
+        if ($total != 0) {
+            if ($page > 1) {
+                echo '<button class="btn btn-dark mx-1 my-3"><a href="Subadmin.php?page=' . ($page - 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Previous</a></button>';
+            }
 
-    // show the first page link
-    if ($page > 2) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="subadmin.php?page=1&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">1</a></button>';
-    }
+            // show the first page link
+            if ($page > 2) {
+                echo '<button class="btn btn-dark mx-1 my-3"><a href="subadmin.php?page=1&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">1</a></button>';
+            }
 
-    // show dots if there are more than 3 pages
-    if ($page > 3) {
-        echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
-    }
+            // show dots if there are more than 3 pages
+            if ($page > 3) {
+                echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
+            }
 
-    // show two links before the current page
-    for ($btn = max(1, $page - 1); $btn < $page; $btn++) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Subadmin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
-    }
+            // show two links before the current page
+            for ($btn = max(1, $page - 1); $btn < $page; $btn++) {
+                echo '<button class="btn btn-dark mx-1 my-3"><a href="Subadmin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
+            }
 
-    // show the current page link
-    echo '<button class="btn btn-primary mx-1 my-3">' . $page . '</button>';
+            // show the current page link
+            echo '<button class="btn btn-primary mx-1 my-3">' . $page . '</button>';
 
-    // show two links after the current page
-    for ($btn = $page + 1; $btn <= min($page + 1, $num); $btn++) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Subadmin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
-    }
+            // show two links after the current page
+            for ($btn = $page + 1; $btn <= min($page + 1, $num); $btn++) {
+                echo '<button class="btn btn-dark mx-1 my-3"><a href="Subadmin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
+            }
 
-    // show dots if there are more than 3 pages
-    if ($page < $num - 2) {
-        echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
-    }
+            // show dots if there are more than 3 pages
+            if ($page < $num - 2) {
+                echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
+            }
 
-    // show the last page link
-    if ($page < $num - 1) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Subadmin.php?page=' . $num . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $num . '</a></button>';
-    }
+            // show the last page link
+            if ($page < $num - 1) {
+                echo '<button class="btn btn-dark mx-1 my-3"><a href="Subadmin.php?page=' . $num . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $num . '</a></button>';
+            }
 
-    if ($page < $num) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Subadmin.php?page=' . ($page + 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Next</a></button>';
-    }
-}
+            if ($page < $num) {
+                echo '<button class="btn btn-dark mx-1 my-3"><a href="Subadmin.php?page=' . ($page + 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Next</a></button>';
+            }
+        }
         ?>
     </center>

@@ -33,14 +33,18 @@
         }
 
         img {
-    height: 100px;
-    width: 100px;
+    height: 200px;
+    width: 200px;
     }
 td{
     padding: 7px;
 }
 form{
     margin: 5px;
+}
+a{
+    margin: 5px;
+
 }
     </style>
 
@@ -53,27 +57,6 @@ form{
             <a href="LOGOUT.php"><button type="button" class="btn btn-outline-primary">Log Out</button></a>
         </div>
     </nav>
-    <div class="con">
-        <form method="POST" action="">
-            <div class="input-group-text mb-3 cont1">
-                <input class="input-group-text" type="text" name="search" placeholder="Search Books" required>
-                <button class="btn btn-outline-success" name="submit" type="submit">Search</button>
-            </div>
-        </form>
-        <form class="d-flex" method="GET" action="">
-            <div class="input-group mb-3 cont">
-                <select name="sort_alphabet" class="input-group-text">
-                    <option value="">--SELECT OPTION</option>
-                    <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'a-z')
-                                        echo "selected"; ?>>A-Z</option>
-                    <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'z-a')
-                                        echo "selected"; ?>>Z-A</option>
-                </select>
-                <button class="input-group-text btn btn-light">sort</button>
-            </div>
-        </form>
-    </div>
-
 </body>
 
 </html>
@@ -103,7 +86,7 @@ session_start();
     if ($total != 0) {
         ?>
     <center>
-        <table border='3' cellspacing='7' width=63%>
+        <table border='3' cellspacing='7' width=68%>
             <tr>
                 <th width=4%>S.No.</th>
                 <th width=5%>Images</th>
@@ -111,7 +94,7 @@ session_start();
                 <th width=9%>Author Name</th>
                 <th width=9%>Book Title</th>
                 <th width=9%>No. of Books</th>
-                <th width=18%>Operations</th>
+                <th width=23%>Functions</th>
                 
             </tr>
         <?php
@@ -135,7 +118,8 @@ if($result['wishsub'] =='1') {
                     }
                     
                     echo 
-                    "</td>
+                    "
+                    <a href='remove.php?id=$result[id]'><input type='submit' value='Remove' class='btn btn-danger'></a></td>
                 </tr>";
 
         $a++;

@@ -20,7 +20,7 @@ if ($_POST['submit'] &&  $_GET['id']) {
                     $result=mysqli_query($con,$edit_query);
                     
                     echo "<script>
-                            alert('BOOK SUBMITTED SUCCESSFULLY')
+                            alert('BOOK RETURNED SUCCESSFULLY')
                             window.location.href='SubadminBook.php';</script>";
                 } else {
                     echo "<script>

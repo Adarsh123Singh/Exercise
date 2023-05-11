@@ -34,8 +34,8 @@
         }
 
         img {
-            height: 100px;
-            width: 100px;
+            height: 200px;
+            width: 200px;
         }
 
         td {
@@ -85,16 +85,15 @@ $data = mysqli_query($con, $sql);
 if ($total != 0) {
 ?>
     <center>
-        <table border='3' cellspacing='7' width=64%>
+        <table border='3' cellspacing='7' width=58%>
             <tr>
                 <th width=4%>S.No.</th>
                 <th width=5%>Images</th>
                 <th width=9%>Book Name</th>
                 <th width=9%>Author Name</th>
-                <th width=9%>Date</th>
+                <th width=12%>Date</th>
                 <th width=9%>Month</th>
                 <th width=9%>Week</th>
-                <th width=9%>Time</th>
             </tr>
         <?php
         $a = 1;
@@ -109,7 +108,6 @@ if ($total != 0) {
                     <td>" . $result['DATE1'] . " to ".$result['Date']."</td>
                     <td>" . $result['month1'] . " to ".$result['MONTH']."</td>
                     <td>" . $result['week1'] . " to ".$result['WEEK']."</td>
-                    <td>" . $result['Time'] . "</td>
                 </tr>";
                     $a++;
                 }

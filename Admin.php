@@ -11,8 +11,6 @@ if ($_SESSION['user_type'] !== 'admin') {
     header("location: Error.php");
     exit();
 }
-
-// Display admin page content here
 ?>
 
 <!doctype html>
@@ -41,21 +39,27 @@ if ($_SESSION['user_type'] !== 'admin') {
         }
 
         .con {
-            align-items: inline-block;
+            display: flex;
+            align-items: center;
         }
 
-        .cont,
-        .cont1 {
-            margin: 20px 590px 20px 630px;
+        .cont {
+            margin: 20px  20px 20px 250px;
         }
 
+        .cont1{
+            margin: 20px 20px 20px 300px;
+        }
         img {
-    height: 100px;
-    width: 100px;
-    }
-td{
-    padding: 7px;
-}
+            height: 200px;
+            width: 200px;
+        }
+
+        td {
+            padding: 7px;
+        }
+
+       
     </style>
 
 </head>
@@ -64,10 +68,10 @@ td{
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">Book Details</span>
-            <a href="EDIT_DETAILS.php"><button type="button" class="btn btn-outline-success">ADD BOOK</button></a>
+            <a href="EDIT_DETAILS.php"><button type="button" class="btn btn-outline-success">Add Book</button></a>
             <a href="USERREQUEST.php"><button type="button" class="btn btn-outline-success">User Request</button></a>
+            <a href="userdeatils.php"><button type="button" class="btn btn-outline-light">Other User Details</button></a>
             <a href="LOGOUT.php"><button type="button" class="btn btn-outline-primary">Log Out</button></a>
-            <a href="userdeatils.php"><button type="button" class="btn btn-outline-light">Other user Details</button></a>
         </div>
     </nav>
     <div class="con">
@@ -80,11 +84,11 @@ td{
         <form class="d-flex" method="GET" action="">
             <div class="input-group mb-3 cont">
                 <select name="sort_alphabet" class="input-group-text">
-                    <option value="">--SELECT OPTION</option>
+                    <option value="" hidden>--Select Option</option>
                     <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'a-z')
-                                        echo "selected"; ?>>A-Z</option>
+                                            echo "selected"; ?>>A-Z</option>
                     <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'z-a')
-                                        echo "selected"; ?>>Z-A</option>
+                                            echo "selected"; ?>>Z-A</option>
                 </select>
                 <button class="input-group-text btn btn-light">sort</button>
             </div>
@@ -96,54 +100,54 @@ td{
 </html>
 
 <?php
-    include('edit.php');
-    $sort_option = "";
-    $numberPages = 3;
-    $search = '';
-    if (isset($_POST['submit'])) {
-        $search = $_POST['search'];
+include('edit.php');
+$sort_option = "";
+$numberPages = 3;
+$search = '';
+if (isset($_POST['submit'])) {
+    $search = $_POST['search'];
+}
+
+if (isset($_GET['sort_alphabet'])) {
+    if ($_GET['sort_alphabet'] == 'a-z') {
+        $sort_option = "ASC";
+    } elseif ($_GET['sort_alphabet'] == 'z-a') {
+        $sort_option = "DESC";
     }
+}
 
-    if (isset($_GET['sort_alphabet'])) {
-        if ($_GET['sort_alphabet'] == 'a-z') {
-            $sort_option = "ASC";
-        } elseif ($_GET['sort_alphabet'] == 'z-a') {
-            $sort_option = "DESC";
-        }
-    }
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+} else {
+    $page = 1;
+}
+$count_query = "SELECT COUNT(*) as count FROM edit WHERE id like '%$search%' or BOOKNAME like '%$search%' or AUTHERNAME like '%$search%'";
+$count_result = mysqli_query($con, $count_query);
+$count_row = mysqli_fetch_assoc($count_result);
+$total = $count_row['count'];
 
-    if (isset($_GET['page'])) {
-        $page = $_GET['page'];
-    } else {
-        $page = 1;
-    }
-    $count_query = "SELECT COUNT(*) as count FROM edit WHERE id like '%$search%' or BOOKNAME like '%$search%' or AUTHERNAME like '%$search%'";
-    $count_result = mysqli_query($con, $count_query);
-    $count_row = mysqli_fetch_assoc($count_result);
-    $total = $count_row['count'];
+$num = ceil($total / $numberPages);
 
-    $num = ceil($total / $numberPages);
+$startinglimit = ($page - 1) * $numberPages;
 
-    $startinglimit = ($page - 1) * $numberPages;
-
-    $sql = "SELECT * FROM edit WHERE id like '%$search%' Or BOOKNAME like '%$search%' Or AUTHERNAME like '%$search%' ORDER BY id $sort_option LIMIT $startinglimit,$numberPages ";
-    $data = mysqli_query($con, $sql);
-    if ($total != 0) {
-        ?>
+$sql = "SELECT * FROM edit WHERE id like '%$search%' Or BOOKNAME like '%$search%' Or AUTHERNAME like '%$search%' ORDER BY BOOKNAME $sort_option LIMIT $startinglimit,$numberPages ";
+$data = mysqli_query($con, $sql);
+if ($total != 0) {
+?>
     <center>
-        <table border='3' cellspacing='7' width=89%>
+        <table border='3' cellspacing='7' width=95%>
             <tr>
                 <th width=4%>S.No.</th>
                 <th width=5%>Images</th>
                 <th width=9%>Book Name</th>
                 <th width=9%>Book Title</th>
-                <th width=9%>Author Name</th>
+                <th width=15%>Author Name</th>
                 <th width=9%>No. of Books</th>
                 <th width=22%>Description</th>
-                <th width=22%>Operation</th>
+                <th width=22%>Function</th>
             </tr>
         <?php
-            $a=($page - 1) * $numberPages + 1;
+        $a = ($page - 1) * $numberPages + 1;
         while ($result = mysqli_fetch_assoc($data)) {
             echo "<tr>
                     <td>$a</td>
@@ -162,56 +166,56 @@ td{
                     
                     </td>
                 </tr>";
-                $a++;
+            $a++;
         }
     } else {
         echo "No Records Count";
     }
 
-    ?>
+        ?>
         </table>
         <?php
-if($total != 0) {
-    if ($page > 1) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page - 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Previous</a></button>';
-    }
+        if ($total != 0) {
+            if ($page > 1) {
+                echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page - 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Previous</a></button>';
+            }
 
-    // show the first page link
-    if ($page > 2) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=1&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">1</a></button>';
-    }
+            // show the first page link
+            if ($page > 2) {
+                echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=1&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">1</a></button>';
+            }
 
-    // show dots if there are more than 3 pages
-    if ($page > 3) {
-        echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
-    }
+            // show dots if there are more than 3 pages
+            if ($page > 3) {
+                echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
+            }
 
-    // show two links before the current page
-    for ($btn = max(1, $page - 1); $btn < $page; $btn++) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
-    }
+            // show two links before the current page
+            for ($btn = max(1, $page - 1); $btn < $page; $btn++) {
+                echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
+            }
 
-    // show the current page link
-    echo '<button class="btn btn-primary mx-1 my-3">' . $page . '</button>';
+            // show the current page link
+            echo '<button class="btn btn-primary mx-1 my-3">' . $page . '</button>';
 
-    // show two links after the current page
-    for ($btn = $page + 1; $btn <= min($page + 1, $num); $btn++) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
-    }
+            // show two links after the current page
+            for ($btn = $page + 1; $btn <= min($page + 1, $num); $btn++) {
+                echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $btn . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $btn . '</a></button>';
+            }
 
-    // show dots if there are more than 3 pages
-    if ($page < $num - 2) {
-        echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
-    }
+            // show dots if there are more than 3 pages
+            if ($page < $num - 2) {
+                echo '<button class="btn btn-dark mx-1 my-3" disabled>...</button>';
+            }
 
-    // show the last page link
-    if ($page < $num - 1) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $num . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $num . '</a></button>';
-    }
+            // show the last page link
+            if ($page < $num - 1) {
+                echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . $num . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">' . $num . '</a></button>';
+            }
 
-    if ($page < $num) {
-        echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page + 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Next</a></button>';
-    }
-}
-?>
+            if ($page < $num) {
+                echo '<button class="btn btn-dark mx-1 my-3"><a href="Admin.php?page=' . ($page + 1) . '&sort_alphabet=' . $sort_option . '&search=' . $search . '" class="text-light">Next</a></button>';
+            }
+        }
+        ?>
     </center>

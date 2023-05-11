@@ -24,18 +24,9 @@
             padding: 0 500px;
         }
 
-        .con {
-            align-items: inline-block;
-        }
-
-        .cont,
-        .cont1 {
-            margin: 20px 590px 20px 630px;
-        }
-
         img {
-            height: 100px;
-            width: 100px;
+            height: 200px;
+            width: 200px;
         }
 
         td {
@@ -56,27 +47,6 @@
             <a href="LOGOUT.php"><button type="button" class="btn btn-outline-primary">Log Out</button></a>
         </div>
     </nav>
-    <div class="con">
-        <form method="POST" action="">
-            <div class="input-group-text mb-3 cont1">
-                <input class="input-group-text" type="text" name="search" placeholder="Search Books" required>
-                <button class="btn btn-outline-success" name="submit" type="submit">Search</button>
-            </div>
-        </form>
-        <form class="d-flex" method="GET" action="">
-            <div class="input-group mb-3 cont">
-                <select name="sort_alphabet" class="input-group-text">
-                    <option value="">--SELECT OPTION</option>
-                    <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'a-z')
-                                            echo "selected"; ?>>A-Z</option>
-                    <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == 'z-a')
-                                            echo "selected"; ?>>Z-A</option>
-                </select>
-                <button class="input-group-text btn btn-light">sort</button>
-            </div>
-        </form>
-    </div>
-
 </body>
 
 </html>
@@ -106,7 +76,7 @@ $data = mysqli_query($con, $sql);
 if ($total != 0) {
 ?>
     <center>
-        <table border='3' cellspacing='7' width=46%>
+        <table border='3' cellspacing='7' width=55%>
             <tr>
                 <th width=4%>S.No.</th>
                 <th width=5%>Images</th>
@@ -114,7 +84,7 @@ if ($total != 0) {
                 <th width=9%>Author Name</th>
                 <th width=9%>Date</th>
                 <th width=9%>Time</th>
-                <th width=10%>Operation</th>
+                <th width=10%>Function</th>
             </tr>
         <?php
         $a = 1;
@@ -131,31 +101,31 @@ if ($total != 0) {
                     <td>";
                     if ($result['MARK'] == 0 && $result['SUBMIT'] == 0) {
                         echo "<form method='POST' action='MARKSUB.php?id=$result[id]'>
-                    <input type='submit' value='Mark' class='btn btn-success' name='mark'>
+                    <input type='submit' value='Mark As Read' class='btn btn-success' name='mark'>
                     </form>
                     <form method='POST' action='SUBMITSUB.php?id=$result[id]'>
-                    <input type='submit' value='Submit' class='btn btn-dark' name='submit'>
+                    <input type='submit' value='Return' class='btn btn-dark' name='submit'>
                     </form>";
                     } elseif ($result['MARK'] == 1 && $result['SUBMIT'] == 0) {
                         echo "<form method='POST' action='MARKSUB.php?id=$result[id]'>
                     <input type='submit' value='Marked as read' class='btn btn-success' name='mark' disabled>
                     </form>
                     <form method='POST' action='SUBMITSUB.php?id=$result[id]'>
-                    <input type='submit' value='Submit' class='btn btn-dark' name='submit'>
+                    <input type='submit' value='Return' class='btn btn-dark' name='submit'>
                     </form>";
                     } elseif ($result['MARK'] == 0 && $result['SUBMIT'] == 1) {
                         echo "<form method='POST' action='MARKSUB.php?id=$result[id]'>
                     <input type='submit' value='Not Completed' class='btn btn-success' name='mark' disabled>
                     </form>
                     <form method='POST' action='SUBMITSUB.php?id=$result[id]'>
-                    <input type='submit' value='Submitted' class='btn btn-dark' name='submit' disabled>
+                    <input type='submit' value='Returned' class='btn btn-dark' name='submit' disabled>
                     </form>";
                     } else {
                         echo "<form method='POST' action='MARKSUB.php?id=$result[id]'>
                     <input type='submit' value='Marked as read' class='btn btn-success' name='mark' disabled>
                     </form>
                     <form method='POST' action='SUBMITSUB.php?id=$result[id]'>
-                    <input type='submit' value='Submitted' class='btn btn-dark' name='submit' disabled>
+                    <input type='submit' value='Returned' class='btn btn-dark' name='submit' disabled>
                     </form>";
                     }
                     echo "</td>

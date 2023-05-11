@@ -33,21 +33,33 @@ if (!isset($_SESSION['user_name']) && ($_SESSION['email']) && ($_SESSION['user_t
         }
 
         .con {
-            align-items: inline-block;
+            display: flex;
+            align-items: center;
         }
 
-        .cont,
-        .cont1 {
-            margin: 20px 590px 20px 630px;
+        .cont
+         {
+            margin: 20px 20px 20px 250px;
+        }
+
+        .cont1{
+            margin: 20px 20px 20px 300px;
         }
 
         img {
-            height: 100px;
-            width: 100px;
+            height: 200px;
+            width: 200px;
         }
 
         td {
             padding: 5px;
+        }
+
+        a{
+            margin: 5px;
+        }
+        form{
+            margin: 10px 0 0 5px;
         }
     </style>
 
@@ -57,9 +69,9 @@ if (!isset($_SESSION['user_name']) && ($_SESSION['email']) && ($_SESSION['user_t
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">Book Details</span>
-            <a href="UserBook.php" button type="button" class="btn btn-outline-info">Info</button></a>
-            <a href="UserWish.php" button type="button" class="btn btn-outline-success">WISH TO READ</button></a>
-            <a href="hisuser.php"><button type="button" class="btn btn-outline-light">HISTORY</button></a>
+            <a href="UserBook.php" type="button" class="btn btn-outline-info">Info</button></a>
+            <a href="UserWish.php" type="button" class="btn btn-outline-success">Wish To Read</button></a>
+            <a href="hisuser.php"><button type="button" class="btn btn-outline-light">History</button></a>
             <a href="LOGOUT.php"><button type="button" class="btn btn-outline-primary">Log Out</button></a>
         </div>
     </nav>
@@ -83,8 +95,6 @@ if (!isset($_SESSION['user_name']) && ($_SESSION['email']) && ($_SESSION['user_t
             </div>
         </form>
     </div>
-
-
 </body>
 
 </html>
@@ -140,7 +150,7 @@ if ($total != 0) {
                 <th width=9% height=2%>Author Name</th>
                 <th width=9% height=2%>No. of Books</th>
                 <th width=22% height=2%>Description</th>
-                <th width=15% height=2%>Operation</th>
+                <th width=15% height=2%>Function</th>
             </tr>
         <?php
         $a = ($page - 1) * $numberPages + 1;
@@ -156,14 +166,23 @@ if ($total != 0) {
 
                     <td><a href='viewuser.php?id=$result[id]'><input type='submit' value='View' class='btn btn-info'></a>";
             if ($result['issueuser'] == '0') {
-                echo "<a href='issueuser.php?id=$result[id]'><input type='submit' value='Book Issue' class='btn btn-dark'></a>";
-                if ($result['wishuser'] == '0') {
-                    echo "<form method='POST' action='wishuser.php?id=$result[id]'><input type='submit' value = 'wish' class='btn btn-light' name='wish'></form>";
+                if ($result['NUMBER'] != '0') {
+                    echo "<a href='issueuser.php?id=$result[id]'><input type='submit' value='Issue' class='btn btn-dark'></a>";
+                    if ($result['wishuser'] == '0') {
+                        echo "<form method='POST' action='wishuser.php?id=$result[id]'><input type='submit' value = 'wish' class='btn btn-light' name='wish'></form>";
+                    } else {
+                        echo "<form method='POST' action=''><input type='submit' value = 'wished' class='btn btn-danger' name='wish'></form>";
+                    }
                 } else {
-                    echo "<form method='POST' action=''><input type='submit' value = 'wished' class='btn btn-danger' name='wish'></form>";
+                    echo "<a href=''><input type='submit' value='Not Available' class='btn btn-dark' disabled></a>";
+                    if ($result['wishuser'] == '0') {
+                        echo "<form method='POST' action='wishuser.php?id=$result[id]'><input type='submit' value = 'wish' class='btn btn-light' name='wish'></form>";
+                    } else {
+                        echo "<form method='POST' action=''><input type='submit' value = 'wished' class='btn btn-danger' name='wish'></form>";
+                    }
                 }
             } else {
-                echo "<a href=''><input type='submit' value='Book Issued' class='btn btn-dark' disabled></a>";
+                echo "<a href=''><input type='submit' value='Issued' class='btn btn-dark' disabled></a>";
             }
 
             echo
